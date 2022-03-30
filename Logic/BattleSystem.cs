@@ -67,15 +67,8 @@ namespace Battle
         }
     }
 
-    public class UserCharacter
+    public class Battle
     {
-        public int userHealth;
-        public int userAttackDamage;
 
-        public UserCharacter (int health, int attackDamage)
-        {
-            userHealth = health;
-            userAttackDamage = attackDamage;
-        }
     }
 }
