@@ -1,15 +1,15 @@
 namespace Character
 {
-    public class UserCharacter
+    public static class UserCharacter
     {
-        public int userHealth;
-        public int userAttackDamage;
+        public static int userHealth = 10;
+        public static int userAttackDamage = 2;
 
-        public UserCharacter(int health, int attackDamage)
-        {
-            userHealth = health;
-            userAttackDamage = attackDamage;
-        }
+        // public UserCharacter(int health, int attackDamage)
+        // {
+        //     userHealth = health;
+        //     userAttackDamage = attackDamage;
+        // }
     }
 
-}
+} 

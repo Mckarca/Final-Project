@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Character;
 namespace Battle
 {
     interface IOpponents
@@ -18,12 +18,19 @@ namespace Battle
         public virtual int attackDamage()
         {
             return 2;
+            
         }
 
         public virtual string message()
         {
             return "Get back scum!";
         }
+    }
+
+    public class PracticeOpponent
+    {
+        public int Health {get; set;}
+        public int AttachDamage {get; set;}
     }
 
     public class RegularKnight : LesserKnight, IOpponents
@@ -67,8 +74,18 @@ namespace Battle
         }
     }
 
-    public class Battle
+    public class Attack
     {
+        public static int CharacterAttacksOpponent(int opponentHealth)
+        {
+            opponentHealth = opponentHealth - UserCharacter.userAttackDamage; 
+            return opponentHealth;
+        }
 
+       public static int OpponentAttacksCharacter(int opponentAttackDamage)
+        {
+            UserCharacter.userHealth = UserCharacter.userHealth - opponentAttackDamage; 
+            return UserCharacter.userHealth;
+        }
     }
 }

@@ -7,11 +7,6 @@ namespace BattleUI
     {
         public static void GoIntoBattle()
         {
-            int userInput;
-            LesserKnight lesserKnight = new LesserKnight();
-            RegularKnight regularKnight = new RegularKnight();
-            GreaterKnight greaterKnight = new GreaterKnight();
-            UserCharacter Dragon = new UserCharacter(10, 2);//Need a way to adjust character stats when level increases
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine();
@@ -19,15 +14,39 @@ namespace BattleUI
             Console.WriteLine($"BATTLE!");
             Console.ResetColor();
             Console.WriteLine($"Time to fight!\n");
-            Console.WriteLine($"User's Health: {Dragon.userHealth}");
+            Console.WriteLine("-----------------------------------------------------------------");
+            BattleUserSelection();
+
+        }
+
+        public static void BattleUserSelection()
+        {
+            int userInput;
+            LesserKnight lesserKnight = new LesserKnight();
+            //RegularKnight regularKnight = new RegularKnight();
+            //GreaterKnight greaterKnight = new GreaterKnight();
+            //UserCharacter Dragon = new UserCharacter();//Need a way to adjust character stats when level increases
+            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
             Console.WriteLine($"Opponent's Health: {lesserKnight.health()}\n");//need a way to decide which opponent user faces, and a way to switch between them.
-            Console.WriteLine($"Select an option to engage in battle! (So far only option 4 works)\n");
+            Console.WriteLine($"Select an option to engage in battle! (So far only option 1 and 4 work)\n");
             Console.WriteLine("(1) Attack");
             Console.WriteLine("(2) Defend");
             Console.WriteLine("(3) Use Item");
             Console.WriteLine("(4) Flee");
             Console.WriteLine("-----------------------------------------------------------------");
             userInput = Convert.ToInt32(Console.ReadLine());
+            if (userInput == 1)
+            {
+                
+                Attack.CharacterAttacksOpponent(lesserKnight.health());
+                Attack.OpponentAttacksCharacter(lesserKnight.attackDamage());
+                Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage!");
+                Console.WriteLine($"You have received {lesserKnight.attackDamage()} damage!");
+                BattleUserSelection();
+
+            }
+
             if (userInput == 4)
             {
                 Flee();
@@ -38,7 +57,6 @@ namespace BattleUI
             // Console.WriteLine($"Greater Knight's health is {greaterKnight.health()}");
             //UserInterface.ExitProgramOption();
         }
-
         public static void Flee()
         {
             int userInput;
