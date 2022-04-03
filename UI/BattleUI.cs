@@ -1,11 +1,13 @@
-using Battle;
+using BattleCoding;
 using NormalUserInterface;
-using Character;
+using CharacterCoding;
+using ItemCoding;
 namespace BattleUI
 {
     public class BattleUserInterface
     {
-        public static void GoIntoBattle()
+        
+        public static void GoIntoBattle(List<Potions> inventory)
         {
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.Black;
@@ -15,20 +17,23 @@ namespace BattleUI
             Console.ResetColor();
             Console.WriteLine($"Time to fight!\n");
             Console.WriteLine("-----------------------------------------------------------------");
-            BattleUserSelection();
-
+            BattleUserSelection(inventory);
         }
 
-        public static void BattleUserSelection()
+        public static void BattleUserSelection(List<Potions> inventory)
         {
             int userInput;
-            LesserKnight lesserKnight = new LesserKnight();
+            opponentStat lesserKnightHealth = new opponentStat(LesserKnight.health);
+            opponentStat lesserKnightAttack = new opponentStat(LesserKnight.attackDamage);
+            Console.WriteLine(lesserKnightHealth());
+            //LesserKnight lesserKnight = new LesserKnight();
+            //opponentStat opponentHealth = new opponentStat(LesserKnight.health);
             //RegularKnight regularKnight = new RegularKnight();
             //GreaterKnight greaterKnight = new GreaterKnight();
             //UserCharacter Dragon = new UserCharacter();//Need a way to adjust character stats when level increases
             Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
-            Console.WriteLine($"Opponent's Health: {lesserKnight.health()}\n");//need a way to decide which opponent user faces, and a way to switch between them.
+            Console.WriteLine($"Opponent's Health: {lesserKnightHealth()}\n");//need a way to decide which opponent user faces, and a way to switch between them.
             Console.WriteLine($"Select an option to engage in battle! (So far only option 1 and 4 work)\n");
             Console.WriteLine("(1) Attack");
             Console.WriteLine("(2) Defend");
@@ -38,18 +43,28 @@ namespace BattleUI
             userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
-                
-                Attack.CharacterAttacksOpponent(lesserKnight.health());
-                Attack.OpponentAttacksCharacter(lesserKnight.attackDamage());
+                //Attack.CharacterAttacksOpponent(LesserKnight.health);//polymorphism issue
+                //Attack.OpponentAttacksCharacter(lesserKnight.attackDamage());//polymorphism issue
+                Attack.CharacterAttacksOpponent(lesserKnightHealth());
+                Attack.OpponentAttacksCharacter(lesserKnightAttack());
                 Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage!");
-                Console.WriteLine($"You have received {lesserKnight.attackDamage()} damage!");
-                BattleUserSelection();
-
+                Console.WriteLine($"You have received {lesserKnightAttack()} damage!");
+                //Console.WriteLine($"You have received {lesserKnight.attackDamage()} damage!");//polymorphism issue
+                BattleUserSelection(inventory);
             }
 
+            if (userInput == 3)
+            {
+                foreach(var item in inventory)
+                    {
+                        Console.WriteLine(item);
+                    }
+            }
+            
             if (userInput == 4)
             {
-                Flee();
+
+                Flee(inventory);
             }
             // Console.WriteLine($"Dragon's health is {Dragon.userHealth}");
             // Console.WriteLine($"Lesser Knight's health is {lesserKnight.health()}");
@@ -57,7 +72,7 @@ namespace BattleUI
             // Console.WriteLine($"Greater Knight's health is {greaterKnight.health()}");
             //UserInterface.ExitProgramOption();
         }
-        public static void Flee()
+        public static void Flee(List<Potions> inventory)
         {
             int userInput;
             Console.WriteLine($"\nAre you sure?");
@@ -67,14 +82,13 @@ namespace BattleUI
             if (userInput == 1)
             {
                 Console.WriteLine();
-                UserInterface.GameMenu();
+                UserInterface.GameMenu(inventory);
             }
             if (userInput == 2)
             {
                 Console.WriteLine();
-                GoIntoBattle();
+                GoIntoBattle(inventory);
             }
-
         }
     }
 }

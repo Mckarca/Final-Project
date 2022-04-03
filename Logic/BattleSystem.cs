@@ -1,78 +1,95 @@
-﻿using Character;
-namespace Battle
+﻿using CharacterCoding;
+namespace BattleCoding
 {
-    interface IOpponents
+    
+    public delegate int opponentStat();
+    // interface IOpponents
+    // {
+    //     int health();
+    //     int attackDamage();
+    //     string message();
+    //     int goldWinnings();
+    // }
+    public class LesserKnight
     {
-        int health();
-        int attackDamage();
-        string message();
-    }
-
-    public class LesserKnight : IOpponents
-    {
-        public virtual int health()
+        public static int health()
         {
             return 10;
         }
 
-        public virtual int attackDamage()
+        public static int attackDamage()
         {
             return 2;
-            
         }
 
-        public virtual string message()
+        public static string message()
         {
             return "Get back scum!";
         }
+
+        public static int goldWinnings()
+        {
+            return 10;
+        }
+        
     }
 
-    public class PracticeOpponent
-    {
-        public int Health {get; set;}
-        public int AttachDamage {get; set;}
-    }
+    // public class PracticeOpponent
+    // {
+    //     public int health {get; set;} = 10;
+    //     public int attachDamage {get; set;} = 2;
+    // }
 
-    public class RegularKnight : LesserKnight, IOpponents
-    {
-        public override int health()
-        {
-            return 15;
-        }
+    // public class RegularKnight : LesserKnight, IOpponents
+    // {
+    //     public override int health()
+    //     {
+    //         return 15;
+    //     }
 
-        public override int attackDamage()
-        {
-            return 4;
-        }
+    //     public override int attackDamage()
+    //     {
+    //         return 4;
+    //     }
 
-        public override string message()
-        {
-            return "Prepare to die.";
-        }
-    }
+    //     public override string message()
+    //     {
+    //         return "Prepare to die.";
+    //     }
 
-    public class GreaterKnight : RegularKnight, IOpponents
-    {
-        public override int health()
-        {
-            return 20;
-        }
+    //     public override int goldWinnings()
+    //     {
+    //         return 15;
+    //     }
+    // }
 
-        public override int attackDamage()
-        {
-            return 6;
-        }
+    // public class GreaterKnight : RegularKnight, IOpponents
+    // {
+    //     public override int health()
+    //     {
+    //         return 20;
+    //     }
 
-        public override string message()
-        {
-            return "You will be slaughtered at my hands!";
-        }
+    //     public override int attackDamage()
+    //     {
+    //         return 6;
+    //     }
 
-        public int superAttackDamage()
-        {
-            return 12;
-        }
-    }
+    //     public override string message()
+    //     {
+    //         return "You will be slaughtered at my hands!";
+    //     }
+
+    //     public int superAttackDamage()
+    //     {
+    //         return 12;
+    //     }
+
+    //     public override int goldWinnings()
+    //     {
+    //         return 20;
+    //     }
+    // }
 
     public class Attack
     {
@@ -86,6 +103,11 @@ namespace Battle
         {
             UserCharacter.userHealth = UserCharacter.userHealth - opponentAttackDamage; 
             return UserCharacter.userHealth;
+        }
+
+        public static void OpponentDefeat()
+        {
+
         }
     }
 }
