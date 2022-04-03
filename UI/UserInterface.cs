@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 using BattleCoding;
 using BattleUI;
 using CharacterCoding;
@@ -15,7 +16,38 @@ namespace NormalUserInterface
             Console.WriteLine("You'll have to fight your way past his various knights while you gain enough levels that you can finally defeat the evil king himself.");
             Console.WriteLine($"For now though, I don't have a lot actually built, but you're welcome to explore what's here!\n");
             Console.WriteLine("-----------------------------------------------------------------");
-            GameMenu(inventory);
+            MainMenu(inventory);
+
+        }
+
+        public static void MainMenu(List<Potions> inventory)
+        {
+            int userInput;
+
+            Console.WriteLine("(1) Enter Game");
+            Console.WriteLine("(2) Save Inventory and Quit Game");
+            Console.WriteLine("(3) Load inventory");
+            userInput = Convert.ToInt32(Console.ReadLine());
+            if (userInput == 1)
+            {
+                GameMenu(inventory);
+            }
+
+            if (userInput == 2)
+            {
+                var json = JsonSerializer.Serialize(inventory);
+                File.WriteAllText("inventory.json", json);
+                Console.WriteLine("You're inventory has been saved!");
+
+            }
+            if (userInput == 3)
+            {
+                var json = File.ReadAllText("inventory.json");
+                Console.WriteLine(json);
+                var loadedInventory = JsonSerializer.Deserialize<List<Potions>>(json);
+                Console.WriteLine(loadedInventory);
+                GameMenu(loadedInventory);
+            }
         }
 
         public static void GameMenu(List<Potions> inventory)
@@ -25,7 +57,7 @@ namespace NormalUserInterface
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("~Dragon's Hoard~");
             Console.ResetColor();
-            Console.WriteLine($"\nEnter a number for one of the options below (only 1 and 4 currently lead anywhere).");
+            Console.WriteLine($"\nEnter a number for one of the options below (all but option 3 lead somewhere).");
             Console.WriteLine("(1) Go Into Battle");
             Console.WriteLine("(2) Visit Store");
             Console.WriteLine("(3) View Character Information");
@@ -59,7 +91,11 @@ namespace NormalUserInterface
             {
                 ReadInstructions(inventory);
             }
-            if (userInput == 3 || userInput == 5)
+            if (userInput == 5)
+            {
+                MainMenu(inventory);
+            }
+            if (userInput == 3)
             {
                 Console.WriteLine($"\nSorry! That option is not availible at the moment. Please choose something else! :)\n");
                 GameMenu(inventory);
@@ -105,7 +141,7 @@ namespace NormalUserInterface
                     UserCharacter.userGoldCount = UserCharacter.userGoldCount - 10;
                     inventory.Add(Potions.LesserHealthPotion);
                     inventory.Sort();
-                    foreach(var item in inventory)
+                    foreach (var item in inventory)
                     {
                         Console.WriteLine(item);
                     }
@@ -115,7 +151,7 @@ namespace NormalUserInterface
                     UserCharacter.userGoldCount = UserCharacter.userGoldCount - 20;
                     inventory.Add(Potions.GreaterHealthPotion);
                     inventory.Sort();
-                    foreach(var item in inventory)
+                    foreach (var item in inventory)
                     {
                         Console.WriteLine(item);
                     }
@@ -125,7 +161,7 @@ namespace NormalUserInterface
                     UserCharacter.userGoldCount = UserCharacter.userGoldCount - 30;
                     inventory.Add(Potions.AttackPotion);
                     inventory.Sort();
-                    foreach(var item in inventory)
+                    foreach (var item in inventory)
                     {
                         Console.WriteLine(item);
                     }
@@ -133,10 +169,10 @@ namespace NormalUserInterface
                 if (userInput == 4)
                 {
                     break;
-                   
+
                 }
-                
-            }    
+
+            }
             GameMenu(inventory);
         }
 
