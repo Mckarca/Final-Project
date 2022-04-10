@@ -10,9 +10,9 @@ namespace ItemCoding
     public class Inventory
     {
         
-        public void AddToInventory()
-        {
+        //public void AddToInventory()
+       //{
            // List<Potions> inventory = new List<Potions>();
-        }
+        //}
     }
 }

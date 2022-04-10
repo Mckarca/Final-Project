@@ -14,7 +14,7 @@ namespace NormalUserInterface
             Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine($"\nHey there! This will be a game where you play as a dragon trying to rescue its precious gold from the corrupt king.");
             Console.WriteLine("You'll have to fight your way past his various knights while you gain enough levels that you can finally defeat the evil king himself.");
-            Console.WriteLine($"For now though, I don't have a lot actually built, but you're welcome to explore what's here!\n");
+            Console.WriteLine($"The game is still under heavy construction, but you're welcome to explore what's here!\n");
             Console.WriteLine("-----------------------------------------------------------------");
             MainMenu(inventory);
 
@@ -23,7 +23,12 @@ namespace NormalUserInterface
         public static void MainMenu(List<Potions> inventory)
         {
             int userInput;
-
+            //int userInput1;
+            //PracticeInt money = new PracticeInt();
+            //Console.WriteLine("Enter a money amount:");
+            //userInput1 = Convert.ToInt32(Console.ReadLine());
+            //money.practiceInt = userInput1;
+            
             Console.WriteLine("(1) Enter Game");
             Console.WriteLine("(2) Save Inventory and Quit Game");
             Console.WriteLine("(3) Load inventory");
@@ -39,6 +44,10 @@ namespace NormalUserInterface
                 File.WriteAllText("inventory.json", json);
                 Console.WriteLine("You're inventory has been saved!");
 
+                var json1 = JsonSerializer.Serialize(UserCharacter.userGoldCount);
+                File.WriteAllText("userGoldCount.json", json1);
+                Console.WriteLine("You're money has been saved!");
+
             }
             if (userInput == 3)
             {
@@ -46,6 +55,12 @@ namespace NormalUserInterface
                 Console.WriteLine(json);
                 var loadedInventory = JsonSerializer.Deserialize<List<Potions>>(json);
                 Console.WriteLine(loadedInventory);
+                //GameMenu(loadedInventory);
+
+                //var json1 = File.ReadAllText("userGoldCount.json");
+                //Console.WriteLine(json1);
+                //var loadedUserGoldCount = JsonSerializer.Deserialize<UserCharacter>(json1);
+                ///Console.WriteLine(loadedUserGoldCount);//need to pass loadedGoldCount in
                 GameMenu(loadedInventory);
             }
         }
@@ -115,7 +130,12 @@ namespace NormalUserInterface
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine($"\nInstructions:");
             Console.ResetColor();
-            Console.WriteLine("Currently, you can only access this page and the battle page of the game. New features are in development.");
+            Console.WriteLine("Hi there! New features are in development.");
+            Console.WriteLine("All option on the game menu except for (3) View Character Information lead somewhere. ");
+            Console.WriteLine("Go Into Battle- Engage in battle with the enemy knights. So far, you can attack them, but are unable to leave any damage. Selecting 'Use Item' will print out your inventory, but items currently have no function.");
+            Console.WriteLine("Visit Store- Spend money on items to help you in battle! (Currently, no items have any actual function).");
+            Console.WriteLine("Read Instructions- You are here.");
+            Console.WriteLine("Return to Main Menu- Return to the main menu. From there, you can save your inventory and quit the game, or load your last inventory. Saving will override your last save.");
             Console.WriteLine("I am currently focused on making the battle function work. The Instructions page will be updated when there are actual functions that need instructions given.");
             Console.WriteLine("-----------------------------------------------------------------");
             ExitProgramOption(inventory);

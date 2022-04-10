@@ -6,9 +6,10 @@ namespace BattleUI
 {
     public class BattleUserInterface
     {
-        
+
         public static void GoIntoBattle(List<Potions> inventory)
         {
+            opponentStat lesserKnightHealth = new opponentStat(LesserKnight.health);
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine();
@@ -17,15 +18,15 @@ namespace BattleUI
             Console.ResetColor();
             Console.WriteLine($"Time to fight!\n");
             Console.WriteLine("-----------------------------------------------------------------");
-            BattleUserSelection(inventory);
+            BattleUserSelection(inventory, lesserKnightHealth);
+
         }
 
-        public static void BattleUserSelection(List<Potions> inventory)
+        public static void BattleUserSelection(List<Potions> inventory, opponentStat lesserKnightHealth)
         {
             int userInput;
-            opponentStat lesserKnightHealth = new opponentStat(LesserKnight.health);
             opponentStat lesserKnightAttack = new opponentStat(LesserKnight.attackDamage);
-            Console.WriteLine(lesserKnightHealth());
+            //Console.WriteLine(lesserKnightHealth());
             //LesserKnight lesserKnight = new LesserKnight();
             //opponentStat opponentHealth = new opponentStat(LesserKnight.health);
             //RegularKnight regularKnight = new RegularKnight();
@@ -34,7 +35,7 @@ namespace BattleUI
             Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
             Console.WriteLine($"Opponent's Health: {lesserKnightHealth()}\n");//need a way to decide which opponent user faces, and a way to switch between them.
-            Console.WriteLine($"Select an option to engage in battle! (So far only option 1 and 4 work)\n");
+            Console.WriteLine($"Select an option to engage in battle! (Defend doesn't work, and items have no implementation)\n");
             Console.WriteLine("(1) Attack");
             Console.WriteLine("(2) Defend");
             Console.WriteLine("(3) Use Item");
@@ -50,17 +51,18 @@ namespace BattleUI
                 Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage!");
                 Console.WriteLine($"You have received {lesserKnightAttack()} damage!");
                 //Console.WriteLine($"You have received {lesserKnight.attackDamage()} damage!");//polymorphism issue
-                BattleUserSelection(inventory);
+                BattleUserSelection(inventory, lesserKnightHealth);
             }
 
             if (userInput == 3)
             {
-                foreach(var item in inventory)
-                    {
-                        Console.WriteLine(item);
-                    }
+                foreach (var item in inventory)
+                {
+                    Console.WriteLine(item);
+                }
+                BattleUserSelection(inventory, lesserKnightHealth);
             }
-            
+
             if (userInput == 4)
             {
 

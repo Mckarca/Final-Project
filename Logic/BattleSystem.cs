@@ -3,6 +3,8 @@ namespace BattleCoding
 {
     
     public delegate int opponentStat();
+    
+    
     // interface IOpponents
     // {
     //     int health();
@@ -34,11 +36,11 @@ namespace BattleCoding
         
     }
 
-    // public class PracticeOpponent
-    // {
-    //     public int health {get; set;} = 10;
-    //     public int attachDamage {get; set;} = 2;
-    // }
+    public class PracticeOpponent
+    {
+        public int health {get; set;} = 10;
+        public int attackDamage {get; set;} = 2;
+    }
 
     // public class RegularKnight : LesserKnight, IOpponents
     // {
@@ -90,6 +92,37 @@ namespace BattleCoding
     //         return 20;
     //     }
     // }
+
+    abstract class Boss
+    {
+        //health, attack, message, gold
+        public abstract int health();
+        public abstract int attackDamage();
+        public abstract int GoldWinnings();
+        public  abstract string Message();
+    }
+
+    class TyrantKing : Boss
+    {
+        public override int health()
+        {
+            return 50;
+        }
+
+        public override int attackDamage()
+        {
+            return 15;
+        }
+
+        public override int GoldWinnings()
+        {
+            return 100;
+        }
+        public override string Message()
+        {
+            return "You have met your match in me. You will be dragged out of here in pieces.";
+        }
+    }
 
     public class Attack
     {

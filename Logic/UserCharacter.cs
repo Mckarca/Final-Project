@@ -1,6 +1,6 @@
 namespace CharacterCoding
 {
-    public static class UserCharacter
+    public class UserCharacter
     {
         public static int userHealth = 10;
         public static int userAttackDamage = 2;
@@ -13,5 +13,10 @@ namespace CharacterCoding
         //     userHealth = health;
         //     userAttackDamage = attackDamage;
         // }
+    }
+
+    public  class PracticeInt
+    {
+        public int practiceInt = 0;
     }
 } 
