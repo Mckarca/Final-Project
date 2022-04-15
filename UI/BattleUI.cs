@@ -6,10 +6,9 @@ namespace BattleUI
 {
     public class BattleUserInterface
     {
-
         public static void GoIntoBattle(List<Potions> inventory)
         {
-            opponentStat lesserKnightHealth = new opponentStat(LesserKnight.health);
+            //opponentStat lesserKnightHealth = new opponentStat(LesserKnight.health);//delegate
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine();
@@ -18,23 +17,21 @@ namespace BattleUI
             Console.ResetColor();
             Console.WriteLine($"Time to fight!\n");
             Console.WriteLine("-----------------------------------------------------------------");
-            BattleUserSelection(inventory, lesserKnightHealth);
-
+            BattleUserSelection(inventory);
         }
 
-        public static void BattleUserSelection(List<Potions> inventory, opponentStat lesserKnightHealth)
+        public static void BattleUserSelection(List<Potions> inventory)
         {
             int userInput;
-            opponentStat lesserKnightAttack = new opponentStat(LesserKnight.attackDamage);
+            //opponentStat lesserKnightAttack = new opponentStat(LesserKnight.attackDamage);//delegate
             //Console.WriteLine(lesserKnightHealth());
-            //LesserKnight lesserKnight = new LesserKnight();
-            //opponentStat opponentHealth = new opponentStat(LesserKnight.health);
-            //RegularKnight regularKnight = new RegularKnight();
-            //GreaterKnight greaterKnight = new GreaterKnight();
-            //UserCharacter Dragon = new UserCharacter();//Need a way to adjust character stats when level increases
+            LesserKnight lesserKnight = new LesserKnight();
+            //opponentStat opponentHealth = new opponentStat(LesserKnight.health);//delegate
+            RegularKnight regularKnight = new RegularKnight();
+            GreaterKnight greaterKnight = new GreaterKnight();
             Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
-            Console.WriteLine($"Opponent's Health: {lesserKnightHealth()}\n");//need a way to decide which opponent user faces, and a way to switch between them.
+            Console.WriteLine($"Opponent's Health: {regularKnight.health}\n");//need a way to decide which opponent user faces, and a way to switch between them.
             Console.WriteLine($"Select an option to engage in battle! (Defend doesn't work, and items have no implementation)\n");
             Console.WriteLine("(1) Attack");
             Console.WriteLine("(2) Defend");
@@ -46,12 +43,12 @@ namespace BattleUI
             {
                 //Attack.CharacterAttacksOpponent(LesserKnight.health);//polymorphism issue
                 //Attack.OpponentAttacksCharacter(lesserKnight.attackDamage());//polymorphism issue
-                Attack.CharacterAttacksOpponent(lesserKnightHealth());
-                Attack.OpponentAttacksCharacter(lesserKnightAttack());
+                Attack.CharacterAttacksOpponent(regularKnight.health);
+                Attack.OpponentAttacksCharacter(regularKnight.attackDamage);
                 Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage!");
-                Console.WriteLine($"You have received {lesserKnightAttack()} damage!");
+                Console.WriteLine($"You have received {regularKnight.attackDamage} damage!");
                 //Console.WriteLine($"You have received {lesserKnight.attackDamage()} damage!");//polymorphism issue
-                BattleUserSelection(inventory, lesserKnightHealth);
+                BattleUserSelection(inventory);
             }
 
             if (userInput == 3)
@@ -60,7 +57,7 @@ namespace BattleUI
                 {
                     Console.WriteLine(item);
                 }
-                BattleUserSelection(inventory, lesserKnightHealth);
+                BattleUserSelection(inventory);
             }
 
             if (userInput == 4)

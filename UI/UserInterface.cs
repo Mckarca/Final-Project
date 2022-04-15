@@ -17,21 +17,16 @@ namespace NormalUserInterface
             Console.WriteLine($"The game is still under heavy construction, but you're welcome to explore what's here!\n");
             Console.WriteLine("-----------------------------------------------------------------");
             MainMenu(inventory);
-
         }
 
         public static void MainMenu(List<Potions> inventory)
         {
             int userInput;
-            //int userInput1;
-            //PracticeInt money = new PracticeInt();
-            //Console.WriteLine("Enter a money amount:");
-            //userInput1 = Convert.ToInt32(Console.ReadLine());
-            //money.practiceInt = userInput1;
-            
+
             Console.WriteLine("(1) Enter Game");
             Console.WriteLine("(2) Save Inventory and Quit Game");
-            Console.WriteLine("(3) Load inventory");
+            Console.WriteLine("(3) Load Inventory");
+            Console.WriteLine("(4) Exit Game");
             userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
@@ -42,31 +37,36 @@ namespace NormalUserInterface
             {
                 var json = JsonSerializer.Serialize(inventory);
                 File.WriteAllText("inventory.json", json);
-                Console.WriteLine("You're inventory has been saved!");
+                Console.WriteLine("Your inventory has been saved!");
 
-                var json1 = JsonSerializer.Serialize(UserCharacter.userGoldCount);
-                File.WriteAllText("userGoldCount.json", json1);
-                Console.WriteLine("You're money has been saved!");
-
+                var writer = new StreamWriter("GoldCount.txt");
+                writer.WriteLine(UserCharacter.userGoldCount);
+                writer.Close();
+                Console.WriteLine("Your money has been saved!");
             }
             if (userInput == 3)
             {
                 var json = File.ReadAllText("inventory.json");
-                Console.WriteLine(json);
                 var loadedInventory = JsonSerializer.Deserialize<List<Potions>>(json);
-                Console.WriteLine(loadedInventory);
-                //GameMenu(loadedInventory);
+                Console.WriteLine("Your inventory has been loaded!");
 
-                //var json1 = File.ReadAllText("userGoldCount.json");
-                //Console.WriteLine(json1);
-                //var loadedUserGoldCount = JsonSerializer.Deserialize<UserCharacter>(json1);
-                ///Console.WriteLine(loadedUserGoldCount);//need to pass loadedGoldCount in
+                StreamReader reader = new StreamReader("GoldCount.txt");
+                int loadedGoldCount = Int32.Parse(reader.ReadLine());
+                UserCharacter.userGoldCount = loadedGoldCount;
+                reader.Close();
+                Console.WriteLine("Your money has been loaded!");
+                
                 GameMenu(loadedInventory);
+            }
+            if (userInput == 4)
+            {
+                Console.WriteLine("Goodbye!");
             }
         }
 
         public static void GameMenu(List<Potions> inventory)
         {
+
             Console.WriteLine("-----------------------------------------------------------------");
             Console.BackgroundColor = ConsoleColor.DarkRed;
             Console.ForegroundColor = ConsoleColor.White;
@@ -115,7 +115,6 @@ namespace NormalUserInterface
                 Console.WriteLine($"\nSorry! That option is not availible at the moment. Please choose something else! :)\n");
                 GameMenu(inventory);
             }
-
             if (userInput != 1 & userInput != 2 & userInput != 3 & userInput != 4 & userInput != 5)
             {
                 Console.WriteLine($"Sorry, that option doesn't exist! Please try again.\n");
@@ -143,7 +142,6 @@ namespace NormalUserInterface
 
         public static void VisitStore(List<Potions> inventory)
         {
-            //List<Potions> inventory = new List<Potions>();
             int userInput;
             while (true)
             {
@@ -191,7 +189,6 @@ namespace NormalUserInterface
                     break;
 
                 }
-
             }
             GameMenu(inventory);
         }

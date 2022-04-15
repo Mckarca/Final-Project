@@ -1,10 +1,10 @@
 ﻿using CharacterCoding;
 namespace BattleCoding
 {
-    
-    public delegate int opponentStat();
-    
-    
+
+    //public delegate int opponentStat();
+
+
     // interface IOpponents
     // {
     //     int health();
@@ -14,34 +14,37 @@ namespace BattleCoding
     // }
     public class LesserKnight
     {
-        public static int health()
-        {
-            return 10;
-        }
-
-        public static int attackDamage()
-        {
-            return 2;
-        }
-
-        public static string message()
-        {
-            return "Get back scum!";
-        }
-
-        public static int goldWinnings()
-        {
-            return 10;
-        }
-        
+        public int health { get; set; } = 10;
+        public int attackDamage { get; set; } = 2;
+        public  string message { get; set; } = "Get back scum!";
+        public int goldWinnings { get; set; } = 10;
     }
 
     public class PracticeOpponent
     {
-        public int health {get; set;} = 10;
-        public int attackDamage {get; set;} = 2;
+        public int health { get; set; } = 10;
+        public int attackDamage { get; set; } = 2;
     }
 
+    public class RegularKnight
+    {
+        public int health { get; set; } = 15;
+        public int attackDamage { get; set; } = 4;
+
+        public string message { get; set; } = "Prepare to die.";
+
+        public int goldWinnings { get; set; } = 15;
+    }
+
+    public class GreaterKnight
+    {
+        public int health { get; set; } = 20;
+        public int attackDamage { get; set; } = 6;
+        public string message { get; set; } = "You will be slaughtered at my hands!";
+        public int superAttackDamage { get; set; } = 12;
+        public int goldWinnings { get; set; } = 20;
+    }
+    //regular knight inheriting from IOpponents and LesserKnight, greater knight inheriting from Iopponets and regular knight
     // public class RegularKnight : LesserKnight, IOpponents
     // {
     //     public override int health()
@@ -95,11 +98,10 @@ namespace BattleCoding
 
     abstract class Boss
     {
-        //health, attack, message, gold
         public abstract int health();
         public abstract int attackDamage();
         public abstract int GoldWinnings();
-        public  abstract string Message();
+        public abstract string Message();
     }
 
     class TyrantKing : Boss
@@ -108,12 +110,10 @@ namespace BattleCoding
         {
             return 50;
         }
-
         public override int attackDamage()
         {
             return 15;
         }
-
         public override int GoldWinnings()
         {
             return 100;
@@ -128,13 +128,13 @@ namespace BattleCoding
     {
         public static int CharacterAttacksOpponent(int opponentHealth)
         {
-            opponentHealth = opponentHealth - UserCharacter.userAttackDamage; 
+            opponentHealth = opponentHealth - UserCharacter.userAttackDamage;
             return opponentHealth;
         }
 
-       public static int OpponentAttacksCharacter(int opponentAttackDamage)
+        public static int OpponentAttacksCharacter(int opponentAttackDamage)
         {
-            UserCharacter.userHealth = UserCharacter.userHealth - opponentAttackDamage; 
+            UserCharacter.userHealth = UserCharacter.userHealth - opponentAttackDamage;
             return UserCharacter.userHealth;
         }
 
@@ -144,3 +144,4 @@ namespace BattleCoding
         }
     }
 }
+
