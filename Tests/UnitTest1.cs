@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using ItemCoding;
+using  System.Collections.Generic;
 
 namespace Tests;
 
@@ -10,8 +12,9 @@ public class Tests
     }
 
     [Test]
-    public void Test1()
+    public void TestSavingUserGoldCount()
     {
         Assert.Pass();
+
     }
 }

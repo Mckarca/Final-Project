@@ -27,31 +27,67 @@ namespace BattleUI
             //Console.WriteLine(lesserKnightHealth());
             LesserKnight lesserKnight = new LesserKnight();
             //opponentStat opponentHealth = new opponentStat(LesserKnight.health);//delegate
-            RegularKnight regularKnight = new RegularKnight();
+            //RegularKnight regularKnight = new RegularKnight();
             GreaterKnight greaterKnight = new GreaterKnight();
             Console.WriteLine("-----------------------------------------------------------------");
-            Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
-            Console.WriteLine($"Opponent's Health: {regularKnight.health}\n");//need a way to decide which opponent user faces, and a way to switch between them.
-            Console.WriteLine($"Select an option to engage in battle! (Defend doesn't work, and items have no implementation)\n");
+            Console.WriteLine($"Select an option to engage in battle! (Items have no implementation)\n");
             Console.WriteLine("(1) Attack");
-            Console.WriteLine("(2) Defend");
-            Console.WriteLine("(3) Use Item");
-            Console.WriteLine("(4) Flee");
+            Console.WriteLine("(2) Use Item");
+            Console.WriteLine("(3) Flee");
             Console.WriteLine("-----------------------------------------------------------------");
             userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
-                //Attack.CharacterAttacksOpponent(LesserKnight.health);//polymorphism issue
-                //Attack.OpponentAttacksCharacter(lesserKnight.attackDamage());//polymorphism issue
-                Attack.CharacterAttacksOpponent(regularKnight.health);
-                Attack.OpponentAttacksCharacter(regularKnight.attackDamage);
-                Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage!");
-                Console.WriteLine($"You have received {regularKnight.attackDamage} damage!");
-                //Console.WriteLine($"You have received {lesserKnight.attackDamage()} damage!");//polymorphism issue
+                {
+                    if (UserCharacter.userLevel < 5)
+                    {
+                        Console.WriteLine("Your opponent is the Lesser Knight!");
+                        Console.WriteLine($"Opponent's Health: {LesserKnight.health}");
+                        Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
+                        Attack.AttackLesserKnight();
+                        Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {LesserKnight.health}!");
+                        Console.WriteLine($"You have received {LesserKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
+                    }
+                    if (UserCharacter.userLevel >= 5 && UserCharacter.userLevel < 10)
+                    {
+                        Console.WriteLine("Your opponent is the Regular Knight!");
+                        Console.WriteLine($"Opponent's Health: {RegularKnight.health}");
+                        Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
+                        Attack.AttackRegularKnight();
+                        Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {RegularKnight.health}!");
+                        Console.WriteLine($"You have received {RegularKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
+                    }
+                    if (UserCharacter.userLevel >= 10 && UserCharacter.userLevel < 15)
+                    {
+                        Console.WriteLine("Your opponent is the Greater Knight!");
+                        Console.WriteLine($"Opponent's Health: {GreaterKnight.health}");
+                        Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
+                        Attack.AttackGreaterKnight();
+                        Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {GreaterKnight.health}!");
+                        Console.WriteLine($"You have received {GreaterKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
+                    }
+                    //DefeatInBattle.OpponentDefeatInBattle();
+                    if (DefeatInBattle.OpponentDefeatInBattle() is true)
+                    {
+                        Console.WriteLine("Congratulations! You are victorious!");
+                        UserInterface.GameMenu(inventory);
+                    }
+                    else
+                    {
+                        //DefeatInBattle.UserDefeatInBattle();
+                        if (DefeatInBattle.UserDefeatInBattle() is true)
+                        {
+                            Console.WriteLine("You have been defeated!");
+                            Console.WriteLine();
+                            UserInterface.GameMenu(inventory);
+                        }
+                    }
+
+                }
                 BattleUserSelection(inventory);
             }
 
-            if (userInput == 3)
+            if (userInput == 2)
             {
                 foreach (var item in inventory)
                 {
@@ -60,15 +96,11 @@ namespace BattleUI
                 BattleUserSelection(inventory);
             }
 
-            if (userInput == 4)
+            if (userInput == 3)
             {
 
                 Flee(inventory);
             }
-            // Console.WriteLine($"Dragon's health is {Dragon.userHealth}");
-            // Console.WriteLine($"Lesser Knight's health is {lesserKnight.health()}");
-            // Console.WriteLine($"Regular Knight's health is {regularKnight.health()}");
-            // Console.WriteLine($"Greater Knight's health is {greaterKnight.health()}");
             //UserInterface.ExitProgramOption();
         }
         public static void Flee(List<Potions> inventory)
@@ -91,3 +123,4 @@ namespace BattleUI
         }
     }
 }
+
