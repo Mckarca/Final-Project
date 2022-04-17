@@ -83,9 +83,10 @@ namespace BattleUI
 
             if (userInput == 2)
             {
-                Console.WriteLine($"You have {Inventory.DisplayLesserHealthPotions(inventory)} lesser health potions.");
-                Console.WriteLine($"You have {Inventory.DisplayGreaterHealthPotions(inventory)} greater health potions.");
-                if (Inventory.DisplayLesserHealthPotions(inventory) == 0 && Inventory.DisplayGreaterHealthPotions(inventory) == 0)
+                Console.WriteLine($"You have {Inventory.DisplayLesserHealthPotions(inventory)} Lesser Health potions.");
+                Console.WriteLine($"You have {Inventory.DisplayGreaterHealthPotions(inventory)} Greater Health potions.");
+                Console.WriteLine($"You have {Inventory.DisplayLevelUpPotions(inventory)} Level Up potions.");
+                if (Inventory.DisplayLesserHealthPotions(inventory) == 0 && Inventory.DisplayGreaterHealthPotions(inventory) == 0 && Inventory.DisplayLevelUpPotions(inventory) == 0)
                 {
 
                     Console.WriteLine("You have no items to use");
@@ -97,21 +98,30 @@ namespace BattleUI
                     Console.WriteLine("Which item in your inventory would you like to use?");
                     Console.WriteLine($"\n(1) Lesser Health Potion");
                     Console.WriteLine("(2) Greater Health Potion");
-                    Console.WriteLine("(3) Exit without using item");
+                    Console.WriteLine("(3) Level Up Potion");
+                    Console.WriteLine("(4) Exit without using item");
                     userInput = Convert.ToInt32(Console.ReadLine());
                     if (userInput == 1)
                     {
                         UsingPotions.UseLesserHealthPotion(inventory);
-                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}");
+                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}!");
                         BattleUserSelection(inventory);
                     }
                     if (userInput == 2)
                     {
                         UsingPotions.UseGreaterHealthPotion(inventory);
-                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}");
+                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}!");
                         BattleUserSelection(inventory);
                     }
                     if (userInput == 3)
+                    {
+                        UsingPotions.UseLevelUpPotion(inventory);
+                        Console.WriteLine($"Your level is now {UserCharacter.userLevel}!");
+                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}!");
+                        Console.WriteLine($"Your attack damage is now {UserCharacter.userAttackDamage}!");
+                        BattleUserSelection(inventory);
+                    }
+                    if (userInput == 4)
                     {
                         BattleUserSelection(inventory);
                     }

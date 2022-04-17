@@ -5,6 +5,7 @@ namespace ItemCoding
     {
         LesserHealthPotion,
         GreaterHealthPotion,
+        LevelUpPotion
         //AttackPotion
     }
 
@@ -37,6 +38,20 @@ namespace ItemCoding
             }
             return greaterHealthPotionCount;
         }
+
+        public static int DisplayLevelUpPotions(List<Potions> inventory)
+        {
+            int levelUpPotionCount = 0;
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                // Console.WriteLine($"({i+1}) {inventory[i]}");
+                if (inventory[i] == Potions.LevelUpPotion)
+                {
+                    levelUpPotionCount++;
+                }
+            }
+            return levelUpPotionCount;
+        }
     }
     public class UsingPotions
     {
@@ -50,6 +65,14 @@ namespace ItemCoding
         {
             UserCharacter.userHealth = UserCharacter.userHealth + 10;
             inventory.Remove(Potions.GreaterHealthPotion);
+        }
+
+        public static void UseLevelUpPotion(List<Potions> inventory)
+        {
+            UserCharacter.userLevel++;
+            UserCharacter.userHealth = ((UserCharacter.userLevel - 1) * 2) + 10;
+            UserCharacter.userAttackDamage = UserCharacter.userLevel + 1;
+            inventory.Remove(Potions.LevelUpPotion);
         }
     }
 }

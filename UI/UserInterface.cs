@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.Json;
-using BattleCoding;
+﻿using System.Text.Json;
 using BattleUI;
 using CharacterCoding;
 using ItemCoding;
@@ -22,7 +20,6 @@ namespace NormalUserInterface
         public static void MainMenu(List<Potions> inventory)
         {
             int userInput;
-
             Console.WriteLine("(1) Enter Game");
             Console.WriteLine("(2) Save Inventory and Quit Game");
             Console.WriteLine("(3) Load Inventory");
@@ -39,10 +36,15 @@ namespace NormalUserInterface
                 File.WriteAllText("inventory.json", json);
                 Console.WriteLine("Your inventory has been saved!");
 
-                var writer = new StreamWriter("GoldCount.txt");
-                writer.WriteLine(UserCharacter.userGoldCount);
-                writer.Close();
+                var goldWriter = new StreamWriter("GoldCount.txt");
+                goldWriter.WriteLine(UserCharacter.userGoldCount);
+                goldWriter.Close();
                 Console.WriteLine("Your money has been saved!");
+
+                var levelWriter = new StreamWriter("LevelCount.txt");
+                levelWriter.WriteLine(UserCharacter.userLevel);
+                levelWriter.Close();
+                Console.WriteLine("Your level has been saved!");
             }
             if (userInput == 3)
             {
@@ -50,12 +52,18 @@ namespace NormalUserInterface
                 var loadedInventory = JsonSerializer.Deserialize<List<Potions>>(json);
                 Console.WriteLine("Your inventory has been loaded!");
 
-                StreamReader reader = new StreamReader("GoldCount.txt");
-                int loadedGoldCount = Int32.Parse(reader.ReadLine());
+                StreamReader goldReader = new StreamReader("GoldCount.txt");
+                int loadedGoldCount = Int32.Parse(goldReader.ReadLine());
                 UserCharacter.userGoldCount = loadedGoldCount;
-                reader.Close();
+                goldReader.Close();
                 Console.WriteLine("Your money has been loaded!");
-                
+
+                StreamReader levelReader = new StreamReader("LevelCount.txt");
+                int loadedUserLevel = Int32.Parse(levelReader.ReadLine());
+                UserCharacter.userLevel = loadedUserLevel;
+                levelReader.Close();
+                Console.WriteLine("Your money has been loaded!");
+
                 GameMenu(loadedInventory);
             }
             if (userInput == 4)
@@ -66,7 +74,6 @@ namespace NormalUserInterface
 
         public static void GameMenu(List<Potions> inventory)
         {
-
             Console.WriteLine("-----------------------------------------------------------------");
             Console.BackgroundColor = ConsoleColor.DarkRed;
             Console.ForegroundColor = ConsoleColor.White;
@@ -75,7 +82,7 @@ namespace NormalUserInterface
             Console.WriteLine($"\nEnter a number for one of the options below (all but option 3 lead somewhere).");
             Console.WriteLine("(1) Go Into Battle");
             Console.WriteLine("(2) Visit Store");
-            Console.WriteLine("(3) View Character Information");
+            Console.WriteLine("(3) View Character Information and Inventory");
             Console.WriteLine("(4) Read Instructions");
             Console.WriteLine("(5) Return to Main Menu");
             Console.WriteLine("-----------------------------------------------------------------");
@@ -102,6 +109,10 @@ namespace NormalUserInterface
             {
                 VisitStore(inventory);
             }
+            if (userInput == 3)
+            {
+                CharacterInformation(inventory);
+            }
             if (userInput == 4)
             {
                 ReadInstructions(inventory);
@@ -109,11 +120,6 @@ namespace NormalUserInterface
             if (userInput == 5)
             {
                 MainMenu(inventory);
-            }
-            if (userInput == 3)
-            {
-                Console.WriteLine($"\nSorry! That option is not availible at the moment. Please choose something else! :)\n");
-                GameMenu(inventory);
             }
             if (userInput != 1 & userInput != 2 & userInput != 3 & userInput != 4 & userInput != 5)
             {
@@ -150,8 +156,9 @@ namespace NormalUserInterface
                 Console.WriteLine("Welcome to the store! Select an one of the wares below to purchase.");
                 Console.WriteLine("(1) Lesser Health Potion (adds 5 health)- 10 gold");
                 Console.WriteLine("(2) Greater Health Potion (adds 10 health)- 20 gold");
+                Console.WriteLine($"(3) Level Up Potion (gain a level)- {((UserCharacter.userLevel - 1) * 50) + 100} gold");
                 //Console.WriteLine("(3) Attack Potion (adds 5 attack points for one turn)- 30 gold");
-                Console.WriteLine("\n(3) Exit Store");
+                Console.WriteLine("\n(4) Exit Store");
                 Console.WriteLine("-----------------------------------------------------------------");
                 userInput = Convert.ToInt32(Console.ReadLine());
                 if (userInput == 1)
@@ -186,11 +193,82 @@ namespace NormalUserInterface
                 // }
                 if (userInput == 3)
                 {
+                    UserCharacter.userGoldCount = UserCharacter.userGoldCount - (((UserCharacter.userLevel - 1) * 50) + 100);
+                    inventory.Add(Potions.LevelUpPotion);
+                    inventory.Sort();
+                    foreach (var item in inventory)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+                if (userInput == 4)
+                {
                     break;
-
                 }
             }
             GameMenu(inventory);
+        }
+
+        public static void CharacterInformation(List<Potions> inventory)
+        {
+            int userInput;
+            Console.WriteLine($"\nYou are a level {UserCharacter.userLevel} player.");
+            Console.WriteLine($"You have {UserCharacter.userGoldCount} gold.");
+            Console.WriteLine($"You have {UserCharacter.userHealth} health remaining");
+            Console.WriteLine($"You currently deal {UserCharacter.userAttackDamage} damage.");
+            Console.WriteLine($"You have {Inventory.DisplayLesserHealthPotions(inventory)} Lesser Health potions.");
+            Console.WriteLine($"You have {Inventory.DisplayGreaterHealthPotions(inventory)} Greater Health potions.");
+            Console.WriteLine($"You have {Inventory.DisplayLevelUpPotions(inventory)} Level Up potions.");
+            Console.WriteLine($"\nWould you like to:");
+            Console.WriteLine("(1) Use a Potion");
+            Console.WriteLine("(2) GO Back to Game Menu");
+            userInput = Convert.ToInt32(Console.ReadLine());
+            if (userInput == 1)
+            {
+                if (Inventory.DisplayLesserHealthPotions(inventory) == 0 && Inventory.DisplayGreaterHealthPotions(inventory) == 0 && Inventory.DisplayLevelUpPotions(inventory) == 0)
+                {
+
+                    Console.WriteLine("You have no items to use");
+                    CharacterInformation(inventory);
+                }
+                else
+                {
+                    Console.WriteLine("Which item in your inventory would you like to use?");
+                    Console.WriteLine($"\n(1) Lesser Health Potion");
+                    Console.WriteLine("(2) Greater Health Potion");
+                    Console.WriteLine("(3) Level Up Potion");
+                    Console.WriteLine("(4) Exit without using item");
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                    if (userInput == 1)
+                    {
+                        UsingPotions.UseLesserHealthPotion(inventory);
+                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}!");
+                        CharacterInformation(inventory);
+                    }
+                    if (userInput == 2)
+                    {
+                        UsingPotions.UseGreaterHealthPotion(inventory);
+                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}!");
+                        CharacterInformation(inventory);
+                    }
+                    if (userInput == 3)
+                    {
+                        UsingPotions.UseLevelUpPotion(inventory);
+                        Console.WriteLine($"Your level is now {UserCharacter.userLevel}!");
+                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}!");
+                        Console.WriteLine($"Your attack damage is now {UserCharacter.userAttackDamage}!");
+                        CharacterInformation(inventory);
+                    }
+                    if (userInput == 4)
+                    {
+                        CharacterInformation(inventory);
+                    }
+                }
+            }
+            if (userInput == 2)
+            {
+                GameMenu(inventory);
+            }
         }
 
         public static void ExitProgramOption(List<Potions> inventory)
