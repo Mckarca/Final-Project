@@ -21,8 +21,8 @@ namespace NormalUserInterface
         {
             int userInput;
             Console.WriteLine("(1) Enter Game");
-            Console.WriteLine("(2) Save Inventory and Quit Game");
-            Console.WriteLine("(3) Load Inventory");
+            Console.WriteLine("(2) Save and Quit Game");
+            Console.WriteLine("(3) Load Game");
             Console.WriteLine("(4) Exit Game");
             userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
@@ -71,6 +71,7 @@ namespace NormalUserInterface
             if (userInput == 4)
             {
                 Console.WriteLine("Goodbye!");
+                Environment.Exit(0);
             }
         }
 
@@ -81,7 +82,7 @@ namespace NormalUserInterface
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("~Dragon's Hoard~");
             Console.ResetColor();
-            Console.WriteLine($"\nEnter a number for one of the options below (all but option 3 lead somewhere).");
+            Console.WriteLine($"\nEnter a number for one of the options below.");
             Console.WriteLine("(1) Go Into Battle");
             Console.WriteLine("(2) Visit Store");
             Console.WriteLine("(3) View Character Information and Inventory");
@@ -157,7 +158,7 @@ namespace NormalUserInterface
                 Console.WriteLine("Welcome to the store! Select an one of the wares below to purchase.");
                 Console.WriteLine("(1) Lesser Health Potion (adds 5 health)- 10 gold");
                 Console.WriteLine("(2) Greater Health Potion (adds 10 health)- 20 gold");
-                Console.WriteLine($"(3) Level Up Potion (gain a level)- {((UserCharacter.userLevel - 1) * 50) + 100} gold");
+                Console.WriteLine($"(3) Level Up Potion (gain a level)- {((UserCharacter.userLevel - 1) * 10) + 100} gold");
                 //Console.WriteLine("(3) Attack Potion (adds 5 attack points for one turn)- 30 gold");
                 Console.WriteLine("\n(4) Exit Store");
                 Console.WriteLine("-----------------------------------------------------------------");
@@ -208,9 +209,9 @@ namespace NormalUserInterface
                 // }
                 if (userInput == 3)
                 {
-                    if (UserCharacter.userGoldCount >= (((UserCharacter.userLevel - 1) * 50) + 100))
+                    if (UserCharacter.userGoldCount >= (((UserCharacter.userLevel - 1) *10) + 100))
                     {
-                        UserCharacter.userGoldCount = UserCharacter.userGoldCount - (((UserCharacter.userLevel - 1) * 50) + 100);
+                        UserCharacter.userGoldCount = UserCharacter.userGoldCount - (((UserCharacter.userLevel - 1) * 10) + 100);
                         inventory.Add(Potions.LevelUpPotion);
                         inventory.Sort();
                         foreach (var item in inventory)

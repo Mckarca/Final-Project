@@ -51,7 +51,7 @@ namespace BattleUI
                     Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {RegularKnight.health}!");
                     Console.WriteLine($"You have received {RegularKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
                 }
-                if (UserCharacter.userLevel >= 10 && UserCharacter.userLevel < 15)
+                if (UserCharacter.userLevel >= 10)
                 {
                     Console.WriteLine("Your opponent is the Greater Knight!");
                     Console.WriteLine($"Opponent's Health: {GreaterKnight.health}");
@@ -76,7 +76,6 @@ namespace BattleUI
                 }
                 BattleUserSelection(inventory);
             }
-
             if (userInput == 2)
             {
                 Console.WriteLine($"You have {Inventory.DisplayLesserHealthPotions(inventory)} Lesser Health potions.");
