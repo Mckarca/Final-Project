@@ -8,7 +8,6 @@ namespace BattleUI
     {
         public static void GoIntoBattle(List<Potions> inventory)
         {
-            //opponentStat lesserKnightHealth = new opponentStat(LesserKnight.health);//delegate
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine();
@@ -34,49 +33,46 @@ namespace BattleUI
             userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
+                if (UserCharacter.userLevel < 5)
                 {
-                    if (UserCharacter.userLevel < 5)
+                    Console.WriteLine("Your opponent is the Lesser Knight!");
+                    Console.WriteLine($"Opponent's Health: {LesserKnight.health}");
+                    Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
+                    Attack.AttackLesserKnight();
+                    Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {LesserKnight.health}!");
+                    Console.WriteLine($"You have received {LesserKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
+                }
+                if (UserCharacter.userLevel >= 5 && UserCharacter.userLevel < 10)
+                {
+                    Console.WriteLine("Your opponent is the Regular Knight!");
+                    Console.WriteLine($"Opponent's Health: {RegularKnight.health}");
+                    Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
+                    Attack.AttackRegularKnight();
+                    Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {RegularKnight.health}!");
+                    Console.WriteLine($"You have received {RegularKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
+                }
+                if (UserCharacter.userLevel >= 10 && UserCharacter.userLevel < 15)
+                {
+                    Console.WriteLine("Your opponent is the Greater Knight!");
+                    Console.WriteLine($"Opponent's Health: {GreaterKnight.health}");
+                    Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
+                    Attack.AttackGreaterKnight();
+                    Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {GreaterKnight.health}!");
+                    Console.WriteLine($"You have received {GreaterKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
+                }
+                if (DefeatInBattle.OpponentDefeatInBattle() is true)
+                {
+                    Console.WriteLine("Congratulations! You are victorious!");
+                    UserInterface.GameMenu(inventory);
+                }
+                else
+                {
+                    if (DefeatInBattle.UserDefeatInBattle() is true)
                     {
-                        Console.WriteLine("Your opponent is the Lesser Knight!");
-                        Console.WriteLine($"Opponent's Health: {LesserKnight.health}");
-                        Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
-                        Attack.AttackLesserKnight();
-                        Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {LesserKnight.health}!");
-                        Console.WriteLine($"You have received {LesserKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
-                    }
-                    if (UserCharacter.userLevel >= 5 && UserCharacter.userLevel < 10)
-                    {
-                        Console.WriteLine("Your opponent is the Regular Knight!");
-                        Console.WriteLine($"Opponent's Health: {RegularKnight.health}");
-                        Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
-                        Attack.AttackRegularKnight();
-                        Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {RegularKnight.health}!");
-                        Console.WriteLine($"You have received {RegularKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
-                    }
-                    if (UserCharacter.userLevel >= 10 && UserCharacter.userLevel < 15)
-                    {
-                        Console.WriteLine("Your opponent is the Greater Knight!");
-                        Console.WriteLine($"Opponent's Health: {GreaterKnight.health}");
-                        Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
-                        Attack.AttackGreaterKnight();
-                        Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {GreaterKnight.health}!");
-                        Console.WriteLine($"You have received {GreaterKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
-                    }
-                    if (DefeatInBattle.OpponentDefeatInBattle() is true)
-                    {
-                        Console.WriteLine("Congratulations! You are victorious!");
+                        Console.WriteLine("You have been defeated!");
+                        Console.WriteLine();
                         UserInterface.GameMenu(inventory);
                     }
-                    else
-                    {
-                        if (DefeatInBattle.UserDefeatInBattle() is true)
-                        {
-                            Console.WriteLine("You have been defeated!");
-                            Console.WriteLine();
-                            UserInterface.GameMenu(inventory);
-                        }
-                    }
-
                 }
                 BattleUserSelection(inventory);
             }
@@ -94,7 +90,6 @@ namespace BattleUI
                 }
                 else
                 {
-
                     Console.WriteLine("Which item in your inventory would you like to use?");
                     Console.WriteLine($"\n(1) Lesser Health Potion");
                     Console.WriteLine("(2) Greater Health Potion");
@@ -127,13 +122,13 @@ namespace BattleUI
                     }
                 }
             }
-
             if (userInput == 3)
             {
 
                 Flee(inventory);
             }
         }
+
         public static void Flee(List<Potions> inventory)
         {
             int userInput;
@@ -154,4 +149,3 @@ namespace BattleUI
         }
     }
 }
-

@@ -30,7 +30,6 @@ namespace ItemCoding
             int greaterHealthPotionCount = 0;
             for (int i = 0; i < inventory.Count; i++)
             {
-                // Console.WriteLine($"({i+1}) {inventory[i]}");
                 if (inventory[i] == Potions.GreaterHealthPotion)
                 {
                     greaterHealthPotionCount++;
@@ -44,7 +43,6 @@ namespace ItemCoding
             int levelUpPotionCount = 0;
             for (int i = 0; i < inventory.Count; i++)
             {
-                // Console.WriteLine($"({i+1}) {inventory[i]}");
                 if (inventory[i] == Potions.LevelUpPotion)
                 {
                     levelUpPotionCount++;
@@ -53,6 +51,7 @@ namespace ItemCoding
             return levelUpPotionCount;
         }
     }
+
     public class UsingPotions
     {
         public static void UseLesserHealthPotion(List<Potions> inventory)

@@ -6,17 +6,17 @@ namespace BattleCoding
         public static int health { get; set; } = 9;
         public static int attackDamage { get; set; } = 2;
         public static string message { get; set; } = "Get back scum!";
-        public  static int goldWinnings { get; set; } = 10;
+        public static int goldWinnings { get; set; } = 10;
     }
+
     public class RegularKnight
     {
         public static int health { get; set; } = 13;
         public static int attackDamage { get; set; } = 4;
-
         public static string message { get; set; } = "Prepare to die.";
-
         public static int goldWinnings { get; set; } = 15;
     }
+
     public class GreaterKnight
     {
         public static int health { get; set; } = 17;
@@ -54,7 +54,6 @@ namespace BattleCoding
         }
     }
 
-
     public class Attack
     {
         public static void AttackLesserKnight()
@@ -62,30 +61,33 @@ namespace BattleCoding
             LesserKnight.health = LesserKnight.health - UserCharacter.userAttackDamage;
             UserCharacter.userHealth = UserCharacter.userHealth - LesserKnight.attackDamage;
         }
+
         public static void AttackRegularKnight()
         {
             RegularKnight.health = RegularKnight.health - UserCharacter.userAttackDamage;
             UserCharacter.userHealth = UserCharacter.userHealth - RegularKnight.attackDamage;
         }
+
         public static void AttackGreaterKnight()
         {
             GreaterKnight.health = GreaterKnight.health - UserCharacter.userAttackDamage;
-            UserCharacter.userHealth = UserCharacter.userHealth - GreaterKnight.attackDamage;    
+            UserCharacter.userHealth = UserCharacter.userHealth - GreaterKnight.attackDamage;
         }
+
         public static int OpponentAttacksCharacter(int opponentAttackDamage)
         {
             UserCharacter.userHealth = UserCharacter.userHealth - opponentAttackDamage;
             return UserCharacter.userHealth;
         }
-
     }
+
     public class DefeatInBattle
     {
         public static bool UserDefeatInBattle()
         {
             if (UserCharacter.userHealth <= 0)
             {
-                UserCharacter.userHealth = 10;
+                UserCharacter.userHealth = ((UserCharacter.userLevel - 1) * 2) + 10;
                 return true;
             }
             else
@@ -124,52 +126,3 @@ namespace BattleCoding
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// public void SaveAccounts()
-// {
-//storageService.SaveAccounts(accounts);//all below goes into an implementation of an interface
-//     using (var writer = new StreamWriter(accounts.txt"))
-//     {
-//         foreach (var account in accounts)
-//         {
-//             account.Save(writer);
-//         }
-//         Writer.Close();
-//     }
-// }
-
-// public void LoadAccounts()
-// {
-//     if (File.Exists("accounts.txt"))
-//     {
-//         LoadAccounts = Account.Load("accounts.txt");
-//     }
-// }
-
-
-
-// public void SavePerson()
-// {
-//     using (var writer = new StreamWriter("name.txt"))
-//     {
-//         for each(var people in People)
-//         {
-//             writer.WriteLine("dsjbgsdgg");
-//         }
-//         writer.Close();
-//     }
-// }
