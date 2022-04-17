@@ -1,17 +1,6 @@
 ﻿using CharacterCoding;
 namespace BattleCoding
 {
-
-    //public delegate int opponentStat();
-
-
-    // interface IOpponents
-    // {
-    //     int health();
-    //     int attackDamage();
-    //     string message();
-    //     int goldWinnings();
-    // }
     public class LesserKnight
     {
         public static int health { get; set; } = 9;
@@ -36,57 +25,6 @@ namespace BattleCoding
         public static int superAttackDamage { get; set; } = 12;
         public static int goldWinnings { get; set; } = 20;
     }
-    //regular knight inheriting from IOpponents and LesserKnight, greater knight inheriting from Iopponets and regular knight
-    // public class RegularKnight : LesserKnight, IOpponents
-    // {
-    //     public override int health()
-    //     {
-    //         return 15;
-    //     }
-
-    //     public override int attackDamage()
-    //     {
-    //         return 4;
-    //     }
-
-    //     public override string message()
-    //     {
-    //         return "Prepare to die.";
-    //     }
-
-    //     public override int goldWinnings()
-    //     {
-    //         return 15;
-    //     }
-    // }
-
-    // public class GreaterKnight : RegularKnight, IOpponents
-    // {
-    //     public override int health()
-    //     {
-    //         return 20;
-    //     }
-
-    //     public override int attackDamage()
-    //     {
-    //         return 6;
-    //     }
-
-    //     public override string message()
-    //     {
-    //         return "You will be slaughtered at my hands!";
-    //     }
-
-    //     public int superAttackDamage()
-    //     {
-    //         return 12;
-    //     }
-
-    //     public override int goldWinnings()
-    //     {
-    //         return 20;
-    //     }
-    // }
 
     abstract class Boss
     {
@@ -119,12 +57,6 @@ namespace BattleCoding
 
     public class Attack
     {
-        // public static int CharacterAttacksOpponent(int opponentHealth)
-        // {
-        //     opponentHealth = opponentHealth - UserCharacter.userAttackDamage;
-        //     return opponentHealth;
-        // }
-
         public static void AttackLesserKnight()
         {
             LesserKnight.health = LesserKnight.health - UserCharacter.userAttackDamage;

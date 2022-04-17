@@ -5,7 +5,7 @@ namespace ItemCoding
     {
         LesserHealthPotion,
         GreaterHealthPotion,
-        AttackPotion
+        //AttackPotion
     }
 
     public class Inventory
@@ -37,11 +37,6 @@ namespace ItemCoding
             }
             return greaterHealthPotionCount;
         }
-
-        //public void AddToInventory()
-        //{
-        // List<Potions> inventory = new List<Potions>();
-        //}
     }
     public class UsingPotions
     {
@@ -49,14 +44,12 @@ namespace ItemCoding
         {
             UserCharacter.userHealth = UserCharacter.userHealth + 5;
             inventory.Remove(Potions.LesserHealthPotion);
-            //BattleUserInterface.BattleUserSelection(inventory);
         }
 
         public static void UseGreaterHealthPotion(List<Potions> inventory)
         {
             UserCharacter.userHealth = UserCharacter.userHealth + 10;
             inventory.Remove(Potions.GreaterHealthPotion);
-            //BattleUserInterface.BattleUserSelection(inventory);
         }
     }
 }

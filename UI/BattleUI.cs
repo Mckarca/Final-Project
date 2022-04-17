@@ -23,14 +23,10 @@ namespace BattleUI
         public static void BattleUserSelection(List<Potions> inventory)
         {
             int userInput;
-            //opponentStat lesserKnightAttack = new opponentStat(LesserKnight.attackDamage);//delegate
-            //Console.WriteLine(lesserKnightHealth());
             LesserKnight lesserKnight = new LesserKnight();
-            //opponentStat opponentHealth = new opponentStat(LesserKnight.health);//delegate
-            //RegularKnight regularKnight = new RegularKnight();
             GreaterKnight greaterKnight = new GreaterKnight();
             Console.WriteLine("-----------------------------------------------------------------");
-            Console.WriteLine($"Select an option to engage in battle! (Items have no implementation)\n");
+            Console.WriteLine($"Select an option to engage in battle!\n");
             Console.WriteLine("(1) Attack");
             Console.WriteLine("(2) Use Item");
             Console.WriteLine("(3) Flee");
@@ -89,21 +85,36 @@ namespace BattleUI
             {
                 Console.WriteLine($"You have {Inventory.DisplayLesserHealthPotions(inventory)} lesser health potions.");
                 Console.WriteLine($"You have {Inventory.DisplayGreaterHealthPotions(inventory)} greater health potions.");
-                Console.WriteLine("Which item in your inventory would you like to use?");
-                Console.WriteLine($"\n(1) Lesser Health Potion");
-                Console.WriteLine("(2) Greater Health Potion");
-                userInput = Convert.ToInt32(Console.ReadLine());
-                if (userInput == 1)
+                if (Inventory.DisplayLesserHealthPotions(inventory) == 0 && Inventory.DisplayGreaterHealthPotions(inventory) == 0)
                 {
-                    UsingPotions.UseLesserHealthPotion(inventory);
-                    Console.WriteLine($"Your health is now {UserCharacter.userHealth}");
+
+                    Console.WriteLine("You have no items to use");
                     BattleUserSelection(inventory);
                 }
-                if (userInput == 2)
+                else
                 {
-                    UsingPotions.UseGreaterHealthPotion(inventory);
-                    Console.WriteLine($"Your health is now {UserCharacter.userHealth}");
-                    BattleUserSelection(inventory);
+
+                    Console.WriteLine("Which item in your inventory would you like to use?");
+                    Console.WriteLine($"\n(1) Lesser Health Potion");
+                    Console.WriteLine("(2) Greater Health Potion");
+                    Console.WriteLine("(3) Exit without using item");
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                    if (userInput == 1)
+                    {
+                        UsingPotions.UseLesserHealthPotion(inventory);
+                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}");
+                        BattleUserSelection(inventory);
+                    }
+                    if (userInput == 2)
+                    {
+                        UsingPotions.UseGreaterHealthPotion(inventory);
+                        Console.WriteLine($"Your health is now {UserCharacter.userHealth}");
+                        BattleUserSelection(inventory);
+                    }
+                    if (userInput == 3)
+                    {
+                        BattleUserSelection(inventory);
+                    }
                 }
             }
 
@@ -112,7 +123,6 @@ namespace BattleUI
 
                 Flee(inventory);
             }
-            //UserInterface.ExitProgramOption();
         }
         public static void Flee(List<Potions> inventory)
         {

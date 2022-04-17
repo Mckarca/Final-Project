@@ -150,8 +150,8 @@ namespace NormalUserInterface
                 Console.WriteLine("Welcome to the store! Select an one of the wares below to purchase.");
                 Console.WriteLine("(1) Lesser Health Potion (adds 5 health)- 10 gold");
                 Console.WriteLine("(2) Greater Health Potion (adds 10 health)- 20 gold");
-                Console.WriteLine("(3) Attack Potion (adds 5 attack points for one turn)- 30 gold");
-                Console.WriteLine("\n(4) Exit Store");
+                //Console.WriteLine("(3) Attack Potion (adds 5 attack points for one turn)- 30 gold");
+                Console.WriteLine("\n(3) Exit Store");
                 Console.WriteLine("-----------------------------------------------------------------");
                 userInput = Convert.ToInt32(Console.ReadLine());
                 if (userInput == 1)
@@ -174,17 +174,17 @@ namespace NormalUserInterface
                         Console.WriteLine(item);
                     }
                 }
+                // if (userInput == 3)
+                // {
+                //     UserCharacter.userGoldCount = UserCharacter.userGoldCount - 30;
+                //     inventory.Add(Potions.AttackPotion);
+                //     inventory.Sort();
+                //     foreach (var item in inventory)
+                //     {
+                //         Console.WriteLine(item);
+                //     }
+                // }
                 if (userInput == 3)
-                {
-                    UserCharacter.userGoldCount = UserCharacter.userGoldCount - 30;
-                    inventory.Add(Potions.AttackPotion);
-                    inventory.Sort();
-                    foreach (var item in inventory)
-                    {
-                        Console.WriteLine(item);
-                    }
-                }
-                if (userInput == 4)
                 {
                     break;
 
