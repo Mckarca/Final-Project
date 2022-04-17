@@ -161,24 +161,39 @@ namespace NormalUserInterface
                 Console.WriteLine("\n(4) Exit Store");
                 Console.WriteLine("-----------------------------------------------------------------");
                 userInput = Convert.ToInt32(Console.ReadLine());
+
                 if (userInput == 1)
                 {
-                    UserCharacter.userGoldCount = UserCharacter.userGoldCount - 10;
-                    inventory.Add(Potions.LesserHealthPotion);
-                    inventory.Sort();
-                    foreach (var item in inventory)
+                    if (UserCharacter.userGoldCount >= 10)
                     {
-                        Console.WriteLine(item);
+                        UserCharacter.userGoldCount = UserCharacter.userGoldCount - 10;
+                        inventory.Add(Potions.LesserHealthPotion);
+                        inventory.Sort();
+                        foreach (var item in inventory)
+                        {
+                            Console.WriteLine(item);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough gold!");
                     }
                 }
                 if (userInput == 2)
                 {
-                    UserCharacter.userGoldCount = UserCharacter.userGoldCount - 20;
-                    inventory.Add(Potions.GreaterHealthPotion);
-                    inventory.Sort();
-                    foreach (var item in inventory)
+                    if (UserCharacter.userGoldCount >= 20)
                     {
-                        Console.WriteLine(item);
+                        UserCharacter.userGoldCount = UserCharacter.userGoldCount - 20;
+                        inventory.Add(Potions.GreaterHealthPotion);
+                        inventory.Sort();
+                        foreach (var item in inventory)
+                        {
+                            Console.WriteLine(item);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough gold!");
                     }
                 }
                 // if (userInput == 3)
@@ -193,12 +208,19 @@ namespace NormalUserInterface
                 // }
                 if (userInput == 3)
                 {
-                    UserCharacter.userGoldCount = UserCharacter.userGoldCount - (((UserCharacter.userLevel - 1) * 50) + 100);
-                    inventory.Add(Potions.LevelUpPotion);
-                    inventory.Sort();
-                    foreach (var item in inventory)
+                    if (UserCharacter.userGoldCount >= (((UserCharacter.userLevel - 1) * 50) + 100))
                     {
-                        Console.WriteLine(item);
+                        UserCharacter.userGoldCount = UserCharacter.userGoldCount - (((UserCharacter.userLevel - 1) * 50) + 100);
+                        inventory.Add(Potions.LevelUpPotion);
+                        inventory.Sort();
+                        foreach (var item in inventory)
+                        {
+                            Console.WriteLine(item);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough gold!");
                     }
                 }
                 if (userInput == 4)
@@ -221,7 +243,7 @@ namespace NormalUserInterface
             Console.WriteLine($"You have {Inventory.DisplayLevelUpPotions(inventory)} Level Up potions.");
             Console.WriteLine($"\nWould you like to:");
             Console.WriteLine("(1) Use a Potion");
-            Console.WriteLine("(2) GO Back to Game Menu");
+            Console.WriteLine("(2) Go Back to Game Menu");
             userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
