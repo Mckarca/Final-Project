@@ -22,8 +22,8 @@ namespace BattleUI
         public static void BattleUserSelection(List<Potions> inventory)
         {
             int userInput;
-            LesserKnight lesserKnight = new LesserKnight();
-            GreaterKnight greaterKnight = new GreaterKnight();
+            //LesserKnight lesserKnight = new LesserKnight();
+            //GreaterKnight greaterKnight = new GreaterKnight();
             Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine($"Select an option to engage in battle!\n");
             Console.WriteLine("(1) Attack");
@@ -51,7 +51,7 @@ namespace BattleUI
                     Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {RegularKnight.health}!");
                     Console.WriteLine($"You have received {RegularKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
                 }
-                if (UserCharacter.userLevel >= 10)
+                if (UserCharacter.userLevel >= 10 && UserCharacter.userLevel < 25)
                 {
                     Console.WriteLine("Your opponent is the Greater Knight!");
                     Console.WriteLine($"Opponent's Health: {GreaterKnight.health}");
@@ -59,6 +59,23 @@ namespace BattleUI
                     Attack.AttackGreaterKnight();
                     Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {GreaterKnight.health}!");
                     Console.WriteLine($"You have received {GreaterKnight.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
+                }
+                if (UserCharacter.userLevel >= 25)
+                {
+                    Console.WriteLine("Would you like to challenge the Tyrant King?");
+                    Console.WriteLine($"\n(1) Yes");
+                    Console.WriteLine($"(2) No");
+                    userInput = Convert.ToInt32(Console.ReadLine());
+                    if (userInput == 1)
+                    {
+                        Console.WriteLine("You have challenged the Tyrant King!");
+                        Console.WriteLine($"Opponent's Health: {TyrantKing.health}");
+                        Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
+                        Attack.AttackGreaterKnight();
+                        Console.WriteLine($"\nYou have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {TyrantKing.health}!");
+                        Console.WriteLine($"You have received {TyrantKing.attackDamage} damage! Your health is now {UserCharacter.userHealth}!");
+                    }
+
                 }
                 if (DefeatInBattle.OpponentDefeatInBattle() is true)
                 {
@@ -83,7 +100,6 @@ namespace BattleUI
                 Console.WriteLine($"You have {Inventory.DisplayLevelUpPotions(inventory)} Level Up potions.");
                 if (Inventory.DisplayLesserHealthPotions(inventory) == 0 && Inventory.DisplayGreaterHealthPotions(inventory) == 0 && Inventory.DisplayLevelUpPotions(inventory) == 0)
                 {
-
                     Console.WriteLine("You have no items to use");
                     BattleUserSelection(inventory);
                 }
@@ -92,6 +108,7 @@ namespace BattleUI
                     Console.WriteLine("Which item in your inventory would you like to use?");
                     Console.WriteLine($"\n(1) Lesser Health Potion");
                     Console.WriteLine("(2) Greater Health Potion");
+                    //Console.WriteLine("(3) Attack Potion");
                     Console.WriteLine("(3) Level Up Potion");
                     Console.WriteLine("(4) Exit without using item");
                     userInput = Convert.ToInt32(Console.ReadLine());
@@ -107,6 +124,11 @@ namespace BattleUI
                         Console.WriteLine($"Your health is now {UserCharacter.userHealth}!");
                         BattleUserSelection(inventory);
                     }
+                    // if (userInput == 3)
+                    // {
+                    //     UsingPotions.RemoveAttackPotionFromInventory(inventory);
+                    //     UsingPotions.attackPotionInUse = true;
+                    // }
                     if (userInput == 3)
                     {
                         UsingPotions.UseLevelUpPotion(inventory);
@@ -123,7 +145,7 @@ namespace BattleUI
             }
             if (userInput == 3)
             {
-
+                FleeFromBattle.ResetOpponentHealth();
                 Flee(inventory);
             }
         }

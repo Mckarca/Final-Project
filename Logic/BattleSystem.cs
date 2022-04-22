@@ -1,63 +1,18 @@
 ﻿using CharacterCoding;
+using ItemCoding;
 namespace BattleCoding
 {
-    public class LesserKnight
-    {
-        public static int health { get; set; } = 9;
-        public static int attackDamage { get; set; } = 2;
-        public static string message { get; set; } = "Get back scum!";
-        public static int goldWinnings { get; set; } = 10;
-    }
-
-    public class RegularKnight
-    {
-        public static int health { get; set; } = 13;
-        public static int attackDamage { get; set; } = 4;
-        public static string message { get; set; } = "Prepare to die.";
-        public static int goldWinnings { get; set; } = 15;
-    }
-
-    public class GreaterKnight
-    {
-        public static int health { get; set; } = 17;
-        public static int attackDamage { get; set; } = 6;
-        public static string message { get; set; } = "You will be slaughtered at my hands!";
-        public static int superAttackDamage { get; set; } = 12;
-        public static int goldWinnings { get; set; } = 20;
-    }
-
-    abstract class Boss
-    {
-        public abstract int health();
-        public abstract int attackDamage();
-        public abstract int GoldWinnings();
-        public abstract string Message();
-    }
-
-    class TyrantKing : Boss
-    {
-        public override int health()
-        {
-            return 50;
-        }
-        public override int attackDamage()
-        {
-            return 15;
-        }
-        public override int GoldWinnings()
-        {
-            return 100;
-        }
-        public override string Message()
-        {
-            return "You have met your match in me. You will be dragged out of here in pieces.";
-        }
-    }
 
     public class Attack
     {
         public static void AttackLesserKnight()
         {
+            // if (UsingPotions.attackPotionInUse == true)
+            // {
+            //     //UsingPotions.UseAttackPotion(inventory);
+            //     UserCharacter.userAttackDamage = UserCharacter.userAttackDamage + 5;
+            //     UsingPotions.attackPotionInUse = false;
+            // }
             LesserKnight.health = LesserKnight.health - UserCharacter.userAttackDamage;
             UserCharacter.userHealth = UserCharacter.userHealth - LesserKnight.attackDamage;
         }
@@ -74,11 +29,17 @@ namespace BattleCoding
             UserCharacter.userHealth = UserCharacter.userHealth - GreaterKnight.attackDamage;
         }
 
-        public static int OpponentAttacksCharacter(int opponentAttackDamage)
+        public static void AttackTyrantKing()
         {
-            UserCharacter.userHealth = UserCharacter.userHealth - opponentAttackDamage;
-            return UserCharacter.userHealth;
+            TyrantKing.health = TyrantKing.health - UserCharacter.userAttackDamage;
+            UserCharacter.userHealth = UserCharacter.userHealth - TyrantKing.attackDamage;
         }
+
+        // public static int OpponentAttacksCharacter(int opponentAttackDamage)
+        // {
+        //     UserCharacter.userHealth = UserCharacter.userHealth - opponentAttackDamage;
+        //     return UserCharacter.userHealth;
+        // }
     }
 
     public class DefeatInBattle
@@ -119,10 +80,28 @@ namespace BattleCoding
                 Console.WriteLine($"You have won {GreaterKnight.goldWinnings} gold");
                 return true;
             }
+            if (TyrantKing.health <= 0)
+            {
+                TyrantKing.health = 100;
+                UserCharacter.userGoldCount = UserCharacter.userGoldCount + TyrantKing.goldWinnings;
+                Console.WriteLine($"You have won {TyrantKing.goldWinnings} gold");
+                return true;
+            }
             else
             {
                 return false;
             }
+        }
+    }
+    
+    public class FleeFromBattle
+    {
+        public static void ResetOpponentHealth()
+        {
+           LesserKnight.health = 9;
+           RegularKnight.health = 13;
+           GreaterKnight.health = 17;
+           TyrantKing.health = 100;
         }
     }
 }
