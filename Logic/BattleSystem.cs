@@ -7,12 +7,6 @@ namespace BattleCoding
     {
         public static void AttackLesserKnight()
         {
-            // if (UsingPotions.attackPotionInUse == true)
-            // {
-            //     //UsingPotions.UseAttackPotion(inventory);
-            //     UserCharacter.userAttackDamage = UserCharacter.userAttackDamage + 5;
-            //     UsingPotions.attackPotionInUse = false;
-            // }
             LesserKnight.health = LesserKnight.health - UserCharacter.userAttackDamage;
             UserCharacter.userHealth = UserCharacter.userHealth - LesserKnight.attackDamage;
         }
@@ -34,12 +28,6 @@ namespace BattleCoding
             TyrantKing.health = TyrantKing.health - UserCharacter.userAttackDamage;
             UserCharacter.userHealth = UserCharacter.userHealth - TyrantKing.attackDamage;
         }
-
-        // public static int OpponentAttacksCharacter(int opponentAttackDamage)
-        // {
-        //     UserCharacter.userHealth = UserCharacter.userHealth - opponentAttackDamage;
-        //     return UserCharacter.userHealth;
-        // }
     }
 
     public class DefeatInBattle
@@ -63,28 +51,28 @@ namespace BattleCoding
             {
                 LesserKnight.health = 9;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + LesserKnight.goldWinnings;
-                Console.WriteLine($"You have won {LesserKnight.goldWinnings} gold");
+                Console.WriteLine($"\nYou have won {LesserKnight.goldWinnings} gold");
                 return true;
             }
             if (RegularKnight.health <= 0)
             {
                 RegularKnight.health = 13;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + RegularKnight.goldWinnings;
-                Console.WriteLine($"You have won {RegularKnight.goldWinnings} gold");
+                Console.WriteLine($"\nYou have won {RegularKnight.goldWinnings} gold");
                 return true;
             }
             if (GreaterKnight.health <= 0)
             {
                 GreaterKnight.health = 17;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + GreaterKnight.goldWinnings;
-                Console.WriteLine($"You have won {GreaterKnight.goldWinnings} gold");
+                Console.WriteLine($"\nYou have won {GreaterKnight.goldWinnings} gold");
                 return true;
             }
             if (TyrantKing.health <= 0)
             {
                 TyrantKing.health = 100;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + TyrantKing.goldWinnings;
-                Console.WriteLine($"You have won {TyrantKing.goldWinnings} gold");
+                Console.WriteLine($"\nYou have won {TyrantKing.goldWinnings} gold");
                 return true;
             }
             else
