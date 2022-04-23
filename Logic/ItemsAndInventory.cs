@@ -9,7 +9,32 @@ namespace ItemCoding
         LevelUpPotion
     }
 
-    public class Inventory
+    public class AddToInventory
+    {
+
+        public static void AddLesserHealthPotion(List<Potions> inventory)
+        {
+            UserCharacter.userGoldCount = UserCharacter.userGoldCount - 10;
+            inventory.Add(Potions.LesserHealthPotion);
+            inventory.Sort();
+        }
+
+        public static void AddGreaterHealthPotion(List<Potions> inventory)
+        {
+            UserCharacter.userGoldCount = UserCharacter.userGoldCount - 20;
+            inventory.Add(Potions.GreaterHealthPotion);
+            inventory.Sort();
+        }
+
+        public static void AddLevelUpPotion(List<Potions> inventory)
+        {
+            UserCharacter.userGoldCount = UserCharacter.userGoldCount - (((UserCharacter.userLevel - 1) * 10) + 100);
+            inventory.Add(Potions.LevelUpPotion);
+            inventory.Sort();
+        }
+    }
+
+    public class DisplayInventory
     {
         public static int DisplayLesserHealthPotions(List<Potions> inventory)
         {
@@ -54,36 +79,36 @@ namespace ItemCoding
 
     public class UsingPotions
     {
-       // public static bool attackPotionInUse {get; set; } = false;
+        // public static bool attackPotionInUse {get; set; } = false;
         public static void UseLesserHealthPotion(List<Potions> inventory)
-    {
-        UserCharacter.userHealth = UserCharacter.userHealth + 5;
-        inventory.Remove(Potions.LesserHealthPotion);
+        {
+            UserCharacter.userHealth = UserCharacter.userHealth + 5;
+            inventory.Remove(Potions.LesserHealthPotion);
+        }
+
+        public static void UseGreaterHealthPotion(List<Potions> inventory)
+        {
+            UserCharacter.userHealth = UserCharacter.userHealth + 10;
+            inventory.Remove(Potions.GreaterHealthPotion);
+        }
+
+        // public static void UseAttackPotion(List<Potions> inventory)
+        // {
+        //     UserCharacter.userAttackDamage = UserCharacter.userAttackDamage + 5;
+        // }
+
+        // public static void RemoveAttackPotionFromInventory(List<Potions> inventory)
+        // {
+        //     inventory.Remove(Potions.AttackPotion);
+        // }
+        public static void UseLevelUpPotion(List<Potions> inventory)
+        {
+            UserCharacter.userLevel++;
+            UserCharacter.userHealth = ((UserCharacter.userLevel - 1) * 2) + 10;
+            UserCharacter.userAttackDamage = UserCharacter.userLevel + 1;
+            inventory.Remove(Potions.LevelUpPotion);
+
+        }
+
     }
-
-    public static void UseGreaterHealthPotion(List<Potions> inventory)
-    {
-        UserCharacter.userHealth = UserCharacter.userHealth + 10;
-        inventory.Remove(Potions.GreaterHealthPotion);
-    }
-
-    // public static void UseAttackPotion(List<Potions> inventory)
-    // {
-    //     UserCharacter.userAttackDamage = UserCharacter.userAttackDamage + 5;
-    // }
-
-    // public static void RemoveAttackPotionFromInventory(List<Potions> inventory)
-    // {
-    //     inventory.Remove(Potions.AttackPotion);
-    // }
-    public static void UseLevelUpPotion(List<Potions> inventory)
-    {
-        UserCharacter.userLevel++;
-        UserCharacter.userHealth = ((UserCharacter.userLevel - 1) * 2) + 10;
-        UserCharacter.userAttackDamage = UserCharacter.userLevel + 1;
-        inventory.Remove(Potions.LevelUpPotion);
-
-    }
-
-}
 }
