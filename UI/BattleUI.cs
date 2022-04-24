@@ -21,6 +21,9 @@ namespace BattleUI
         public static void BattleMenu(List<Potions> inventory)
         {
             int userInput;
+            Console.WriteLine($"\nDefeated: {UserCharacter.userDefeatedCount}/5 times");
+            Console.WriteLine($"Total Gold: {UserCharacter.userGoldCount}");
+            Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
             Console.WriteLine("\nSelect an option to engage in battle!\n");
             Console.WriteLine("(1) Attack");
             Console.WriteLine("(2) Use Item");
@@ -91,6 +94,7 @@ namespace BattleUI
                 {
                     UserCharacter.userDefeatedCount++;
                     Console.WriteLine("You have been defeated!");
+                    Console.WriteLine($"You have been defeated {UserCharacter.userDefeatedCount}/5 times.");
                     Console.WriteLine();
                     if (UserCharacter.userDefeatedCount < 5)
                     {
@@ -201,8 +205,9 @@ namespace BattleUI
             Console.ResetColor();
             Console.WriteLine($"\nYou have {DisplayInventory.DisplayLesserHealthPotions(inventory)} Lesser Health potions.");
             Console.WriteLine($"You have {DisplayInventory.DisplayGreaterHealthPotions(inventory)} Greater Health potions.");
+            Console.WriteLine($"You have {DisplayInventory.DisplayIllustriousHealthPotion(inventory)} Illustrious Health potions.");
             Console.WriteLine($"You have {DisplayInventory.DisplayLevelUpPotions(inventory)} Level Up potions.");
-            if (DisplayInventory.DisplayLesserHealthPotions(inventory) == 0 && DisplayInventory.DisplayGreaterHealthPotions(inventory) == 0 && DisplayInventory.DisplayLevelUpPotions(inventory) == 0)
+            if (DisplayInventory.DisplayLesserHealthPotions(inventory) == 0 && DisplayInventory.DisplayGreaterHealthPotions(inventory) == 0 && DisplayInventory.DisplayLevelUpPotions(inventory) == 0 && DisplayInventory.DisplayIllustriousHealthPotion(inventory) == 0)
             {
                 Console.WriteLine("\nYou have no items to use\n");
                 GoIntoBattle(inventory);
@@ -212,9 +217,9 @@ namespace BattleUI
                 Console.WriteLine("Which item in your inventory would you like to use?\n");
                 Console.WriteLine("\n(1) Lesser Health Potion");
                 Console.WriteLine("(2) Greater Health Potion");
-                //Console.WriteLine("(3) Attack Potion");
-                Console.WriteLine("(3) Level Up Potion");
-                Console.WriteLine("\n(4) Return to battle without using item\n");
+                Console.WriteLine("(3) Illustrious Health Potion");
+                Console.WriteLine("(4) Level Up Potion");
+                Console.WriteLine("\n(5) Return to battle without using item\n");
                 Console.WriteLine("-----------------------------------------------------------------");
                 userInput = Convert.ToInt32(Console.ReadLine());
                 if (userInput == 1)
@@ -249,6 +254,21 @@ namespace BattleUI
                 }
                 if (userInput == 3)
                 {
+                    if (DisplayInventory.DisplayIllustriousHealthPotion(inventory) != 0)
+                    {
+                        UsingPotions.UseIllustriousHealthPotion(inventory);
+                        Console.WriteLine("-----------------------------------------------------------------");
+                        Console.WriteLine($"\nYour health is now {UserCharacter.userHealth}!\n");
+                        GoIntoBattle(inventory);
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nYou don't have any of that potion! Please select something else.\n");
+                        UseItem(inventory);
+                    }
+                }
+                if (userInput == 4)
+                {
                     if (DisplayInventory.DisplayLevelUpPotions(inventory) != 0)
                     {
                         UsingPotions.UseLevelUpPotion(inventory);
@@ -264,7 +284,7 @@ namespace BattleUI
                         UseItem(inventory);
                     }
                 }
-                if (userInput == 4)
+                if (userInput == 5)
                 {
                     GoIntoBattle(inventory);
                 }

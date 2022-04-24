@@ -5,6 +5,8 @@ namespace ItemCoding
     {
         LesserHealthPotion,
         GreaterHealthPotion,
+        IllustriousHealthPotion,
+
         LevelUpPotion
     }
 
@@ -24,12 +26,20 @@ namespace ItemCoding
             inventory.Sort();
         }
 
+        public static void AddIllustriousHealthPotion(List<Potions> inventory)
+        {
+            UserCharacter.userGoldCount = UserCharacter.userGoldCount - 30;
+            inventory.Add(Potions.IllustriousHealthPotion);
+            inventory.Sort();
+        }
+
         public static void AddLevelUpPotion(List<Potions> inventory)
         {
             UserCharacter.userGoldCount = UserCharacter.userGoldCount - (((UserCharacter.userLevel - 1) * 10) + 100);
             inventory.Add(Potions.LevelUpPotion);
             inventory.Sort();
         }
+
     }
 
     public class DisplayInventory
@@ -60,6 +70,18 @@ namespace ItemCoding
             return greaterHealthPotionCount;
         }
 
+        public static int DisplayIllustriousHealthPotion(List<Potions> inventory)
+        {
+            int IllustriousHealthPotionCount = 0;
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                if (inventory[i] == Potions.IllustriousHealthPotion)
+                {
+                    IllustriousHealthPotionCount++;
+                }
+            }
+            return IllustriousHealthPotionCount;
+        }
         public static int DisplayLevelUpPotions(List<Potions> inventory)
         {
             int levelUpPotionCount = 0;
@@ -86,6 +108,12 @@ namespace ItemCoding
         {
             UserCharacter.userHealth = UserCharacter.userHealth + 10;
             inventory.Remove(Potions.GreaterHealthPotion);
+        }
+
+        public static void UseIllustriousHealthPotion(List<Potions> inventory)
+        {
+            UserCharacter.userHealth = UserCharacter.userHealth + 20;
+            inventory.Remove(Potions.IllustriousHealthPotion);
         }
 
         public static void UseLevelUpPotion(List<Potions> inventory)

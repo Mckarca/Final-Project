@@ -177,8 +177,9 @@ namespace NormalUserInterface
                 Console.WriteLine("Welcome to the store! Select one of the wares below to purchase.\n");
                 Console.WriteLine("(1) Lesser Health Potion (regain 5 health)- 10 gold");
                 Console.WriteLine("(2) Greater Health Potion (regain 10 health)- 20 gold");
-                Console.WriteLine($"(3) Level Up Potion (gain a level)- {((UserCharacter.userLevel - 1) * 10) + 100} gold");
-                Console.WriteLine("\n(4) Exit Store\n");
+                Console.WriteLine("(3) Illustrious Health Potion (regain 20 health)- 30 gold");
+                Console.WriteLine($"(4) Level Up Potion (gain a level)- {((UserCharacter.userLevel - 1) * 10) + 100} gold");
+                Console.WriteLine("\n(5) Exit Store\n");
                 Console.WriteLine("-----------------------------------------------------------------");
                 userInput = Convert.ToInt32(Console.ReadLine());
                 if (userInput == 1)
@@ -217,6 +218,23 @@ namespace NormalUserInterface
                 }
                 if (userInput == 3)
                 {
+                    if (UserCharacter.userGoldCount >= 30)
+                    {
+                        AddToInventory.AddIllustriousHealthPotion(inventory);
+                        Console.WriteLine("\nInventory List:\n");
+                        foreach (var item in inventory)
+                        {
+                            Console.WriteLine(item);
+                        }
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nYou don't have enough gold!\n");
+                    }
+                }
+                if (userInput == 4)
+                {
                     if (UserCharacter.userGoldCount >= (((UserCharacter.userLevel - 1) * 10) + 100))
                     {
                         AddToInventory.AddLevelUpPotion(inventory);
@@ -232,11 +250,11 @@ namespace NormalUserInterface
                         Console.WriteLine("\nYou don't have enough gold!\n");
                     }
                 }
-                if (userInput == 4)
+                if (userInput == 5)
                 {
                     break;
                 }
-                if (userInput != 1 & userInput != 2 & userInput != 3 & userInput != 4)
+                if (userInput != 1 & userInput != 2 & userInput != 3 & userInput != 4 & userInput != 5)
                 {
                     Console.WriteLine("\nI'm sorry, please try again with a valid option.\n");
                 }
@@ -295,8 +313,9 @@ namespace NormalUserInterface
                 Console.WriteLine("\nWhich item in your inventory would you like to use?");
                 Console.WriteLine("\n(1) Lesser Health Potion");
                 Console.WriteLine("(2) Greater Health Potion");
-                Console.WriteLine("(3) Level Up Potion");
-                Console.WriteLine("(4) Exit without using item\n");
+                Console.WriteLine("(3) Illustrious Health Potion");
+                Console.WriteLine("(4) Level Up Potion");
+                Console.WriteLine("(5) Exit without using item\n");
                 Console.WriteLine("-----------------------------------------------------------------");
                 userInput = Convert.ToInt32(Console.ReadLine());
                 if (userInput == 1)
@@ -329,6 +348,21 @@ namespace NormalUserInterface
                 }
                 if (userInput == 3)
                 {
+                    if (DisplayInventory.DisplayIllustriousHealthPotion(inventory) != 0)
+                    {
+                        UsingPotions.UseIllustriousHealthPotion(inventory);
+                        Console.WriteLine("-----------------------------------------------------------------");
+                        Console.WriteLine($"\nYour health is now {UserCharacter.userHealth}!\n");
+                        CharacterInformation(inventory);
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nYou don't have any of that potion! Please select something else.\n");
+                        UsePotion(inventory);
+                    }
+                }
+                if (userInput == 4)
+                {
                     if (DisplayInventory.DisplayLevelUpPotions(inventory) != 0)
                     {
                         UsingPotions.UseLevelUpPotion(inventory);
@@ -343,7 +377,7 @@ namespace NormalUserInterface
                         UsePotion(inventory);
                     }
                 }
-                if (userInput == 4)
+                if (userInput == 5)
                 {
                     CharacterInformation(inventory);
                 }
