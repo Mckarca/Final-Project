@@ -2,6 +2,8 @@
 using BattleUI;
 using CharacterCoding;
 using ItemCoding;
+using SaveAndLoadCoding;
+
 namespace NormalUserInterface
 {
     public class UserInterface
@@ -40,42 +42,26 @@ namespace NormalUserInterface
                 }
                 if (userInput == 2)
                 {
-                    var json = JsonSerializer.Serialize(inventory);
-                    File.WriteAllText("inventory.json", json);
-                    Console.WriteLine("Your inventory has been saved!");
-
-                    // var goldWriter = new StreamWriter("GoldCount.txt");
-                    // goldWriter.WriteLine(UserCharacter.userGoldCount);
-                    // goldWriter.Close();
-                    // Console.WriteLine("Your gold has been saved!");
-
-                    var levelWriter = new StreamWriter("LevelCount.txt");
-                    levelWriter.WriteLine(UserCharacter.userLevel);
-                    levelWriter.Close();
-                    Console.WriteLine("Your level has been saved!");
+                    SaveGame.SaveUserInventory(inventory);
+                    SaveGame.SaveUserGold();
+                    SaveGame.SaveUserLevel();
+                    Console.WriteLine("-----------------------------------------------------------------");
+                    Console.WriteLine("\nYour inventory has been saved!");
+                    Console.WriteLine("Your gold has been saved!");
+                    Console.WriteLine("Your level has been saved!\n");
+                    Console.WriteLine("-----------------------------------------------------------------");
+                    Environment.Exit(0);
                 }
                 if (userInput == 3)
                 {
-                    var json = File.ReadAllText("inventory.json");
-                    var loadedInventory = JsonSerializer.Deserialize<List<Potions>>(json);
-                    Console.WriteLine("Your inventory has been loaded!");
-
-                    // StreamReader goldReader = new StreamReader("GoldCount.txt");
-                    // int loadedGoldCount = Int32.Parse(goldReader.ReadLine());
-                    // UserCharacter.userGoldCount = loadedGoldCount;
-                    // goldReader.Close();
-                    // Console.WriteLine("Your gold has been loaded!");
-
-                    StreamReader levelReader = new StreamReader("LevelCount.txt");
-                    int loadedUserLevel = Int32.Parse(levelReader.ReadLine());
-                    UserCharacter.userLevel = loadedUserLevel;
-                    levelReader.Close();
-                    Console.WriteLine("Your level has been loaded!");
-
-                    UserCharacter.userHealth = ((UserCharacter.userLevel - 1) * 2) + 10;
-                    UserCharacter.userAttackDamage = UserCharacter.userLevel + 1;
-
-                    GameMenu(loadedInventory);
+                    LoadGame.LoadUserInventory();
+                    LoadGame.LoadUserGold();
+                    LoadGame.LoadUserLevel();
+                    Console.WriteLine("-----------------------------------------------------------------");
+                    Console.WriteLine("\nYour inventory has been loaded!");
+                    Console.WriteLine("Your gold has been loaded!");
+                    Console.WriteLine("Your level has been loaded!\n");
+                    GameMenu(LoadGame.LoadUserInventory());
                 }
                 if (userInput == 4)
                 {
@@ -167,7 +153,7 @@ namespace NormalUserInterface
             Console.WriteLine("I am currently focused on developing the boss battle.");
             Console.WriteLine("\n Enter any button to go back to the Game Menu\n");
             Console.WriteLine("-----------------------------------------------------------------");
-            string userInput = Console.ReadLine();
+            string? userInput = Console.ReadLine();
             if (userInput != null)
             {
                 GameMenu(inventory);
@@ -215,7 +201,7 @@ namespace NormalUserInterface
                     if (UserCharacter.userGoldCount >= 20)
                     {
                         AddToInventory.AddGreaterHealthPotion(inventory);
-                        Console.WriteLine("\nInventory List:\n"); 
+                        Console.WriteLine("\nInventory List:\n");
                         foreach (var item in inventory)
                         {
                             Console.WriteLine(item);

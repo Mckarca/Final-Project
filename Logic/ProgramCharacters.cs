@@ -5,7 +5,7 @@ namespace CharacterCoding
         public static int userLevel { get; set; } = 1;
         public static int userHealth { get; set; } = ((userLevel - 1) * 2) + 10;
         public static int userAttackDamage { get; set; } = userLevel + 1;
-        public static int userGoldCount { get; set; } = 10000;
+        public static int userGoldCount { get; set; } = 0;
     }
 
      public class LesserKnight
