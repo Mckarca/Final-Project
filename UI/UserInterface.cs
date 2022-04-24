@@ -1,9 +1,7 @@
-﻿using System.Text.Json;
-using BattleUI;
+﻿using BattleUI;
 using CharacterCoding;
 using ItemCoding;
 using SaveAndLoadCoding;
-
 namespace NormalUserInterface
 {
     public class UserInterface
@@ -45,10 +43,12 @@ namespace NormalUserInterface
                     SaveGame.SaveUserInventory(inventory);
                     SaveGame.SaveUserGold();
                     SaveGame.SaveUserLevel();
+                    SaveGame.SaveUserDefeats();
                     Console.WriteLine("-----------------------------------------------------------------");
                     Console.WriteLine("\nYour inventory has been saved!");
                     Console.WriteLine("Your gold has been saved!");
-                    Console.WriteLine("Your level has been saved!\n");
+                    Console.WriteLine("Your level has been saved!");
+                    Console.WriteLine("Your defeat count has been saved!\n");
                     Console.WriteLine("-----------------------------------------------------------------");
                     Environment.Exit(0);
                 }
@@ -57,10 +57,12 @@ namespace NormalUserInterface
                     LoadGame.LoadUserInventory();
                     LoadGame.LoadUserGold();
                     LoadGame.LoadUserLevel();
+                    LoadGame.LoadUserDefeats();
                     Console.WriteLine("-----------------------------------------------------------------");
                     Console.WriteLine("\nYour inventory has been loaded!");
                     Console.WriteLine("Your gold has been loaded!");
-                    Console.WriteLine("Your level has been loaded!\n");
+                    Console.WriteLine("Your level has been loaded!");
+                    Console.WriteLine("Your defeat count has been loaded!\n");
                     GameMenu(LoadGame.LoadUserInventory());
                 }
                 if (userInput == 4)
@@ -254,7 +256,8 @@ namespace NormalUserInterface
             Console.WriteLine($"\nYou are a level {UserCharacter.userLevel} player.");
             Console.WriteLine($"You have {UserCharacter.userGoldCount} gold.");
             Console.WriteLine($"You have {UserCharacter.userHealth} health remaining.");
-            Console.WriteLine($"You currently deal {UserCharacter.userAttackDamage} damage.\n");
+            Console.WriteLine($"You currently deal {UserCharacter.userAttackDamage} damage.");
+            Console.WriteLine($"You have been defeated {UserCharacter.userDefeatedCount}/5 times.\n");
             Console.WriteLine($"You have {DisplayInventory.DisplayLesserHealthPotions(inventory)} Lesser Health potions.");
             Console.WriteLine($"You have {DisplayInventory.DisplayGreaterHealthPotions(inventory)} Greater Health potions.");
             Console.WriteLine($"You have {DisplayInventory.DisplayLevelUpPotions(inventory)} Level Up potions.");

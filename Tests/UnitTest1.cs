@@ -1,11 +1,4 @@
 using NUnit.Framework;
-using CharacterCoding;
-using System;
-using SaveAndLoadCoding;
-using System.Text.Json;
-using System.IO;
-using ItemCoding;
-using System.Collections.Generic;
 
 namespace Tests;
 

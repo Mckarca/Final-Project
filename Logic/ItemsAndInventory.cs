@@ -10,7 +10,6 @@ namespace ItemCoding
 
     public class AddToInventory
     {
-
         public static void AddLesserHealthPotion(List<Potions> inventory)
         {
             UserCharacter.userGoldCount = UserCharacter.userGoldCount - 10;

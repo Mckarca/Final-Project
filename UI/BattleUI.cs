@@ -81,6 +81,7 @@ namespace BattleUI
             }
             if (DefeatInBattle.OpponentDefeatInBattle() is true)
             {
+
                 Console.WriteLine("Congratulations! You are victorious!\n");
                 UserInterface.GameMenu(inventory);
             }
@@ -88,9 +89,17 @@ namespace BattleUI
             {
                 if (DefeatInBattle.UserDefeatInBattle() is true)
                 {
+                    UserCharacter.userDefeatedCount++;
                     Console.WriteLine("You have been defeated!");
                     Console.WriteLine();
-                    UserInterface.GameMenu(inventory);
+                    if (UserCharacter.userDefeatedCount < 5)
+                    {
+                        UserInterface.GameMenu(inventory);
+                    }
+                    if (UserCharacter.userDefeatedCount >= 5)
+                    {
+                        UserLosesGame();
+                    }
                 }
             }
             BattleMenu(inventory);
@@ -289,9 +298,19 @@ namespace BattleUI
         public static void UserWins()
         {
             Console.Clear();
+            Console.WriteLine("\nYou win!\n");
             Console.WriteLine("\nCongratualtions! You have defeated the dread Tyrant King and reclaimed your hoard of treasure!");
             Console.WriteLine("You are now free to retire peacefully back in your you cave, or continue terrorizing the kingdom, or whatever your little dragon heart desires.");
             Console.WriteLine("Thanks for playing!\n");
+            Environment.Exit(0);
+        }
+
+        public static void UserLosesGame()
+        {
+            Console.Clear();
+            Console.WriteLine("\nYou lost!\n");
+            Console.WriteLine("You have been defeated five times in battle and must cut your losses. Your life is not worth your treasure.");
+            Console.WriteLine("Better luck next time!\n");
             Environment.Exit(0);
         }
     }

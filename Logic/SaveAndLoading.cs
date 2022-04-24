@@ -1,22 +1,24 @@
 using CharacterCoding;
 using System.Text.Json;
 using ItemCoding;
-//using NormalUserInterface;
 
 namespace SaveAndLoadCoding
 {
     public interface ISaving
     {
-        public static void SaveUserInventory(List<Potions> inventory) =>  throw new NotImplementedException();
-        public static void SaveUserGold() =>  throw new NotImplementedException();
-        public static void SaveUserLevel() =>  throw new NotImplementedException();
+        public static void SaveUserInventory(List<Potions> inventory) => throw new NotImplementedException();
+        public static void SaveUserGold() => throw new NotImplementedException();
+        public static void SaveUserLevel() => throw new NotImplementedException();
+        public static void SaveUserDefeats() => throw new NotImplementedException();
+
     }
 
     public interface ILoading
     {
-        public static void LoadUserInventory() =>  throw new NotImplementedException();
-        public static void LoadUserGold() =>  throw new NotImplementedException();
-        public static void LoadUserLevel() =>  throw new NotImplementedException();
+        public static void LoadUserInventory() => throw new NotImplementedException();
+        public static void LoadUserGold() => throw new NotImplementedException();
+        public static void LoadUserLevel() => throw new NotImplementedException();
+        public static void LoadUserDefeats() => throw new NotImplementedException();
     }
 
     public class SaveGame : ISaving
@@ -39,6 +41,13 @@ namespace SaveAndLoadCoding
             var levelWriter = new StreamWriter("LevelCount.txt");
             levelWriter.WriteLine(UserCharacter.userLevel);
             levelWriter.Close();
+        }
+
+        public static void SaveUserDefeats()
+        {
+            var defeatWriter = new StreamWriter("DefeatCount.txt");
+            defeatWriter.WriteLine(UserCharacter.userDefeatedCount);
+            defeatWriter.Close();
         }
     }
     public class LoadGame : ILoading
@@ -67,6 +76,14 @@ namespace SaveAndLoadCoding
             UserCharacter.userHealth = ((UserCharacter.userLevel - 1) * 2) + 10;
             UserCharacter.userAttackDamage = UserCharacter.userLevel + 1;
 
+        }
+
+        public static void LoadUserDefeats()
+        {
+            StreamReader defeatReader = new StreamReader("DefeatCount.txt");
+            int loadedUserDefeats = Int32.Parse(defeatReader.ReadLine());
+            UserCharacter.userDefeatedCount = loadedUserDefeats;
+            defeatReader.Close();
         }
     }
 }

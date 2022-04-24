@@ -1,5 +1,4 @@
 ﻿using CharacterCoding;
-using ItemCoding;
 namespace BattleCoding
 {
 
@@ -7,6 +6,7 @@ namespace BattleCoding
     {
         public static void AttackLesserKnight()
         {
+
             LesserKnight.health = LesserKnight.health - UserCharacter.userAttackDamage;
             UserCharacter.userHealth = UserCharacter.userHealth - LesserKnight.attackDamage;
         }
@@ -37,6 +37,7 @@ namespace BattleCoding
             if (UserCharacter.userHealth <= 0)
             {
                 UserCharacter.userHealth = ((UserCharacter.userLevel - 1) * 2) + 10;
+                FleeFromBattle.ResetOpponentHealth();
                 return true;
             }
             else
@@ -49,7 +50,7 @@ namespace BattleCoding
         {
             if (LesserKnight.health <= 0)
             {
-                LesserKnight.health = 9;
+                LesserKnight.health = 7;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + LesserKnight.goldWinnings;
                 Console.WriteLine($"\nYou have won {LesserKnight.goldWinnings} gold");
                 return true;
@@ -81,15 +82,15 @@ namespace BattleCoding
             }
         }
     }
-    
+
     public class FleeFromBattle
     {
         public static void ResetOpponentHealth()
         {
-           LesserKnight.health = 9;
-           RegularKnight.health = 13;
-           GreaterKnight.health = 17;
-           TyrantKing.health = 100;
+            LesserKnight.health = 7;
+            RegularKnight.health = 13;
+            GreaterKnight.health = 17;
+            TyrantKing.health = 100;
         }
     }
 }
