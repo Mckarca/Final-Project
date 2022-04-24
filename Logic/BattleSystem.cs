@@ -64,7 +64,7 @@ namespace BattleCoding
             }
             if (GreaterKnight.health <= 0)
             {
-                GreaterKnight.health = 17;
+                GreaterKnight.health = 25;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + GreaterKnight.goldWinnings;
                 Console.WriteLine($"\nYou have won {GreaterKnight.goldWinnings} gold");
                 return true;
@@ -89,7 +89,7 @@ namespace BattleCoding
         {
             LesserKnight.health = 7;
             RegularKnight.health = 13;
-            GreaterKnight.health = 17;
+            GreaterKnight.health = 25;
             TyrantKing.health = 100;
         }
     }
