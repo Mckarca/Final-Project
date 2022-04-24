@@ -10,9 +10,6 @@ namespace NormalUserInterface
         {
             List<Potions> inventory = new List<Potions>();
             Console.WriteLine("-----------------------------------------------------------------");
-            Console.WriteLine("\nHey there! This will be a game where you play as a dragon trying to rescue its precious gold from the corrupt king.");
-            Console.WriteLine("You'll have to fight your way past his various knights while you gain enough levels that you can finally defeat the evil king himself.");
-            Console.WriteLine("The game is still under heavy construction, but you're welcome to explore what's here!\n");
             MainMenu(inventory);
         }
 
@@ -147,12 +144,35 @@ namespace NormalUserInterface
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("Instructions:");
             Console.ResetColor();
-            Console.WriteLine("\nHi there! New features are in development.");
+            Console.WriteLine("\nBrief overview of game:\n");
+            Console.WriteLine("You are a dragon and the evil Tyrant King has stolen your precious hoard of treasure. Fight to recover it!");
+            Console.WriteLine("There are four levels of opponents: Lesser Knights, Regular Knights, Greater Knights, and the Tyrant King himself.");
+            Console.WriteLine("You encounter harder opponents as your level increases.");
+            Console.WriteLine("     Lesser Knight: Level 1-3");
+            Console.WriteLine("     Regular Knight: Level 4-7");
+            Console.WriteLine("     Greater Knight: Level 8-14");
+            Console.WriteLine("     Tyrant King: Availible to challenge after you reach level 15");
+            Console.WriteLine("To win the game, defeat the Tyrant King and reclaim your treasure!");
+            Console.WriteLine("You lose the game if you are defeated 5 times over the course of the game.");
+            Console.WriteLine("Keep an eye on your health and buy health potions when needed.\n");
+            Console.WriteLine("\nBrief overview of the options on the Game Menu:\n");
             Console.WriteLine("Go Into Battle- Engage in battle with the enemy knights.");
             Console.WriteLine("Visit Store- Spend money on items to help you in battle!");
-            Console.WriteLine("Read Instructions- You are here.");
-            Console.WriteLine("Return to Main Menu- Return to the main menu. From there, you can save your game and quit, or load your last save. Saving will override your last save.");
-            Console.WriteLine("I am currently focused on developing the boss battle.");
+            Console.WriteLine("     There are three different levels of health potions. Prices and amount of health restored are listed in the store.");
+            Console.WriteLine("     Level Up Potions are how you gain levels. With each level you gain, your attack damage and health increases.");
+            Console.WriteLine("     The cost of Level Up Potions also increases with each level you gain, but the cost of health potions remains the same.");
+            Console.WriteLine("     You earn gold from the knights that you defeat.");
+            Console.WriteLine("View Character Information and Inventory- Look at your stats and inventory. You can also use potions from this screen.");
+            Console.WriteLine("Read Instructions- You are here!");
+            Console.WriteLine("Return to Main Menu- Return to the main menu. From there, you can save your game and quit, or load your last save. Saving will override your last save.\n");
+            Console.WriteLine("\nBrief overview of battle system:\n");
+            Console.WriteLine("When you go into battle, you will have three options: Attack, Use Item, and Flee.");
+            Console.WriteLine("When you attack, you deal a certain amount of damage to your enemy, and your enemy deals damage to you.");
+            Console.WriteLine("If you die, your health and your opponents health reset and your defeat counter goes up.");
+            Console.WriteLine("If you and your opponent both reach 0 health on the same turn, you will win the round and earn the gold.");
+            Console.WriteLine("However, you will need to regain some health, as the next time you are attacked you will be defeated.");
+            Console.WriteLine("If you flee, your health stays the same, but your opponent's health resets. Your defeat counter remains the same.");
+            Console.WriteLine("Use items to regain health and level up from the battle menu of the Character Information screen.");
             Console.WriteLine("\n Enter any button to go back to the Game Menu\n");
             Console.WriteLine("-----------------------------------------------------------------");
             string? userInput = Console.ReadLine();

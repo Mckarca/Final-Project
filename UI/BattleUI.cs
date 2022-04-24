@@ -66,19 +66,19 @@ namespace BattleUI
 
         public static void AttackOpponent(List<Potions> inventory)
         {
-            if (UserCharacter.userLevel < 5)
+            if (UserCharacter.userLevel < 4)
             {
                 ChallengeLesserKnight();
             }
-            if (UserCharacter.userLevel >= 5 && UserCharacter.userLevel < 10)
+            if (UserCharacter.userLevel >= 4 && UserCharacter.userLevel < 8)
             {
                 ChallengeRegularKnight();
             }
-            if (UserCharacter.userLevel >= 10 && UserCharacter.userLevel < 25)
+            if (UserCharacter.userLevel >= 8 && UserCharacter.userLevel < 15)
             {
                 ChallengeGreaterKnight();
             }
-            if (UserCharacter.userLevel >= 25)
+            if (UserCharacter.userLevel >= 15)
             {
                 ChallengeTyrantKing();
             }
