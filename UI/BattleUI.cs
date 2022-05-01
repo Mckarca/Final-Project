@@ -7,6 +7,7 @@ namespace BattleUI
     public class BattleUserInterface
     {
         static bool ChallengingKing = false;
+        static bool fightingGreaterKnight = false;
         public static void GoIntoBattle(List<Potions> inventory)
         {
             Console.WriteLine("-----------------------------------------------------------------");
@@ -79,16 +80,17 @@ namespace BattleUI
             {
                 ChallengeRegularKnight();
             }
-            if (UserCharacter.userLevel >= 8 && UserCharacter.userLevel < 15)
+            if (UserCharacter.userLevel >= 8 && UserCharacter.userLevel < 13)
             {
                 ChallengeGreaterKnight();
             }
-            if (UserCharacter.userLevel >= 15)
+            if (UserCharacter.userLevel >= 13)
             {
                 ChallengeTyrantKing();
             }
             if (DefeatInBattle.OpponentDefeatInBattle() is true)
             {
+                fightingGreaterKnight = false;
                 Console.WriteLine("Congratulations! You are victorious!\n");
                 UserInterface.GameMenu(inventory);
             }
@@ -151,6 +153,7 @@ namespace BattleUI
 
         public static void ChallengeGreaterKnight()
         {
+            fightingGreaterKnight = true;
             Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.DarkMagenta;
@@ -169,7 +172,12 @@ namespace BattleUI
         public static void ChallengeTyrantKing()
         {
             int userInput;
-            if (ChallengingKing == false)
+            if (fightingGreaterKnight == true)
+            {
+                Console.Clear();
+                ChallengeGreaterKnight();
+            }
+            if (ChallengingKing == false && fightingGreaterKnight == false)
             {
                 Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nWould you like to challenge the Tyrant King?");
@@ -180,19 +188,6 @@ namespace BattleUI
                 if (userInput == 1)
                 {
                     ChallengingKing = true;
-                    // Console.WriteLine("-----------------------------------------------------------------");
-                    // Console.WriteLine();
-                    // Console.BackgroundColor = ConsoleColor.DarkMagenta;
-                    // Console.ForegroundColor = ConsoleColor.White;
-                    // Console.WriteLine("Time To fight!");
-                    // Console.ResetColor();
-                    // Console.WriteLine("\nYou have challenged the TYRANT KING!");
-                    // Console.WriteLine($"Opponent's Health: {TyrantKing.health}");
-                    // Console.WriteLine($"User's Health: {UserCharacter.userHealth}\n");
-                    // Attack.AttackTyrantKing();
-                    // Console.WriteLine($"You have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {TyrantKing.health}!");
-                    // Console.WriteLine($"You have received {TyrantKing.attackDamage} damage! Your health is now {UserCharacter.userHealth}!\n");
-                    // Console.WriteLine("-----------------------------------------------------------------");
                 }
                 if (userInput == 2)
                 {
@@ -358,6 +353,7 @@ namespace BattleUI
             userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
+                ChallengingKing = false;
                 Console.Clear();
                 UserInterface.GameMenu(inventory);
             }

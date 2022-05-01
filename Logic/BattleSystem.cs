@@ -6,15 +6,10 @@ namespace BattleCoding
     {
         public static void AttackLesserKnight()
         {
-
             LesserKnight.health = LesserKnight.health - UserCharacter.userAttackDamage;
             if (LesserKnight.health >= 0)
             {
                 UserCharacter.userHealth = UserCharacter.userHealth - LesserKnight.attackDamage;
-                // if (UserCharacter.userHealth <= 0)
-                // {
-                //     UserCharacter.userHealth = 0;
-                // }
             }
         }
 
@@ -114,7 +109,7 @@ namespace BattleCoding
             LesserKnight.health = 7;
             RegularKnight.health = 13;
             GreaterKnight.health = 25;
-            TyrantKing.health = 100;
+            TyrantKing.health = 120;
         }
     }
 }
