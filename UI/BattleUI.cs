@@ -36,7 +36,6 @@ namespace BattleUI
             }
             catch
             {
-
                 Console.WriteLine("\nSorry, that's not an valid command! Please try again.\n");
                 GoIntoBattle(inventory);
             }
@@ -84,7 +83,6 @@ namespace BattleUI
             }
             if (DefeatInBattle.OpponentDefeatInBattle() is true)
             {
-
                 Console.WriteLine("Congratulations! You are victorious!\n");
                 UserInterface.GameMenu(inventory);
             }
@@ -205,9 +203,9 @@ namespace BattleUI
             Console.ResetColor();
             Console.WriteLine($"\nYou have {DisplayInventory.DisplayLesserHealthPotions(inventory)} Lesser Health potions.");
             Console.WriteLine($"You have {DisplayInventory.DisplayGreaterHealthPotions(inventory)} Greater Health potions.");
-            Console.WriteLine($"You have {DisplayInventory.DisplayIllustriousHealthPotion(inventory)} Illustrious Health potions.");
+            Console.WriteLine($"You have {DisplayInventory.DisplayGrandestHealthPotion(inventory)} Grandest Health potions.");
             Console.WriteLine($"You have {DisplayInventory.DisplayLevelUpPotions(inventory)} Level Up potions.");
-            if (DisplayInventory.DisplayLesserHealthPotions(inventory) == 0 && DisplayInventory.DisplayGreaterHealthPotions(inventory) == 0 && DisplayInventory.DisplayLevelUpPotions(inventory) == 0 && DisplayInventory.DisplayIllustriousHealthPotion(inventory) == 0)
+            if (DisplayInventory.DisplayLesserHealthPotions(inventory) == 0 && DisplayInventory.DisplayGreaterHealthPotions(inventory) == 0 && DisplayInventory.DisplayLevelUpPotions(inventory) == 0 && DisplayInventory.DisplayGrandestHealthPotion(inventory) == 0)
             {
                 Console.WriteLine("\nYou have no items to use\n");
                 GoIntoBattle(inventory);
@@ -217,7 +215,7 @@ namespace BattleUI
                 Console.WriteLine("Which item in your inventory would you like to use?\n");
                 Console.WriteLine("\n(1) Lesser Health Potion");
                 Console.WriteLine("(2) Greater Health Potion");
-                Console.WriteLine("(3) Illustrious Health Potion");
+                Console.WriteLine("(3) Grandest Health Potion");
                 Console.WriteLine("(4) Level Up Potion");
                 Console.WriteLine("\n(5) Return to battle without using item\n");
                 Console.WriteLine("-----------------------------------------------------------------");
@@ -254,9 +252,9 @@ namespace BattleUI
                 }
                 if (userInput == 3)
                 {
-                    if (DisplayInventory.DisplayIllustriousHealthPotion(inventory) != 0)
+                    if (DisplayInventory.DisplayGrandestHealthPotion(inventory) != 0)
                     {
-                        UsingPotions.UseIllustriousHealthPotion(inventory);
+                        UsingPotions.UseGrandestHealthPotion(inventory);
                         Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine($"\nYour health is now {UserCharacter.userHealth}!\n");
                         GoIntoBattle(inventory);

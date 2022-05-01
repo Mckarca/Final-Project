@@ -5,8 +5,7 @@ namespace ItemCoding
     {
         LesserHealthPotion,
         GreaterHealthPotion,
-        IllustriousHealthPotion,
-
+        GrandestHealthPotion,
         LevelUpPotion
     }
 
@@ -26,10 +25,10 @@ namespace ItemCoding
             inventory.Sort();
         }
 
-        public static void AddIllustriousHealthPotion(List<Potions> inventory)
+        public static void AddGrandestHealthPotion(List<Potions> inventory)
         {
             UserCharacter.userGoldCount = UserCharacter.userGoldCount - 30;
-            inventory.Add(Potions.IllustriousHealthPotion);
+            inventory.Add(Potions.GrandestHealthPotion);
             inventory.Sort();
         }
 
@@ -70,17 +69,17 @@ namespace ItemCoding
             return greaterHealthPotionCount;
         }
 
-        public static int DisplayIllustriousHealthPotion(List<Potions> inventory)
+        public static int DisplayGrandestHealthPotion(List<Potions> inventory)
         {
-            int IllustriousHealthPotionCount = 0;
+            int GrandestHealthPotionCount = 0;
             for (int i = 0; i < inventory.Count; i++)
             {
-                if (inventory[i] == Potions.IllustriousHealthPotion)
+                if (inventory[i] == Potions.GrandestHealthPotion)
                 {
-                    IllustriousHealthPotionCount++;
+                    GrandestHealthPotionCount++;
                 }
             }
-            return IllustriousHealthPotionCount;
+            return GrandestHealthPotionCount;
         }
         public static int DisplayLevelUpPotions(List<Potions> inventory)
         {
@@ -110,10 +109,10 @@ namespace ItemCoding
             inventory.Remove(Potions.GreaterHealthPotion);
         }
 
-        public static void UseIllustriousHealthPotion(List<Potions> inventory)
+        public static void UseGrandestHealthPotion(List<Potions> inventory)
         {
             UserCharacter.userHealth = UserCharacter.userHealth + 20;
-            inventory.Remove(Potions.IllustriousHealthPotion);
+            inventory.Remove(Potions.GrandestHealthPotion);
         }
 
         public static void UseLevelUpPotion(List<Potions> inventory)

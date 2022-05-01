@@ -10,7 +10,6 @@ namespace SaveAndLoadCoding
         public static void SaveUserGold() => throw new NotImplementedException();
         public static void SaveUserLevel() => throw new NotImplementedException();
         public static void SaveUserDefeats() => throw new NotImplementedException();
-
     }
 
     public interface ILoading
@@ -75,7 +74,6 @@ namespace SaveAndLoadCoding
             levelReader.Close();
             UserCharacter.userHealth = ((UserCharacter.userLevel - 1) * 2) + 10;
             UserCharacter.userAttackDamage = UserCharacter.userLevel + 1;
-
         }
 
         public static void LoadUserDefeats()
@@ -84,6 +82,24 @@ namespace SaveAndLoadCoding
             int loadedUserDefeats = Int32.Parse(defeatReader.ReadLine());
             UserCharacter.userDefeatedCount = loadedUserDefeats;
             defeatReader.Close();
+        }
+
+    }
+    public class DefaultCharacterSettings
+    {
+        public static void ResetCharacter(List<Potions> inventory)
+        {
+            inventory.Clear();
+            UserCharacter.userGoldCount = 0;
+            UserCharacter.userLevel = 1;
+            UserCharacter.userHealth = ((UserCharacter.userLevel - 1) * 2) + 10;
+            UserCharacter.userAttackDamage = UserCharacter.userLevel + 1;
+            UserCharacter.userDefeatedCount = 0;
+
+            SaveGame.SaveUserInventory(inventory);
+            SaveGame.SaveUserGold();
+            SaveGame.SaveUserLevel();
+            SaveGame.SaveUserDefeats();
         }
     }
 }
