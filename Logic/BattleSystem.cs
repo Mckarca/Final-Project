@@ -8,25 +8,41 @@ namespace BattleCoding
         {
 
             LesserKnight.health = LesserKnight.health - UserCharacter.userAttackDamage;
-            UserCharacter.userHealth = UserCharacter.userHealth - LesserKnight.attackDamage;
+            if (LesserKnight.health >= 0)
+            {
+                UserCharacter.userHealth = UserCharacter.userHealth - LesserKnight.attackDamage;
+                // if (UserCharacter.userHealth <= 0)
+                // {
+                //     UserCharacter.userHealth = 0;
+                // }
+            }
         }
 
         public static void AttackRegularKnight()
         {
             RegularKnight.health = RegularKnight.health - UserCharacter.userAttackDamage;
-            UserCharacter.userHealth = UserCharacter.userHealth - RegularKnight.attackDamage;
+            if (RegularKnight.health >= 0)
+            {
+                UserCharacter.userHealth = UserCharacter.userHealth - RegularKnight.attackDamage;
+            }
         }
 
         public static void AttackGreaterKnight()
         {
             GreaterKnight.health = GreaterKnight.health - UserCharacter.userAttackDamage;
-            UserCharacter.userHealth = UserCharacter.userHealth - GreaterKnight.attackDamage;
+            if (GreaterKnight.health >= 0)
+            {
+                UserCharacter.userHealth = UserCharacter.userHealth - GreaterKnight.attackDamage;
+            }
         }
 
         public static void AttackTyrantKing()
         {
             TyrantKing.health = TyrantKing.health - UserCharacter.userAttackDamage;
-            UserCharacter.userHealth = UserCharacter.userHealth - TyrantKing.attackDamage;
+            if (TyrantKing.health >= 0)
+            {
+                UserCharacter.userHealth = UserCharacter.userHealth - TyrantKing.attackDamage;
+            }
         }
     }
 
@@ -52,6 +68,8 @@ namespace BattleCoding
             {
                 LesserKnight.health = 7;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + LesserKnight.goldWinnings;
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine($"\nYou have won {LesserKnight.goldWinnings} gold");
                 return true;
             }
@@ -59,6 +77,8 @@ namespace BattleCoding
             {
                 RegularKnight.health = 13;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + RegularKnight.goldWinnings;
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine($"\nYou have won {RegularKnight.goldWinnings} gold");
                 return true;
             }
@@ -66,6 +86,8 @@ namespace BattleCoding
             {
                 GreaterKnight.health = 25;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + GreaterKnight.goldWinnings;
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine($"\nYou have won {GreaterKnight.goldWinnings} gold");
                 return true;
             }
@@ -73,6 +95,8 @@ namespace BattleCoding
             {
                 TyrantKing.health = 100;
                 UserCharacter.userGoldCount = UserCharacter.userGoldCount + TyrantKing.goldWinnings;
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine($"\nYou have won {TyrantKing.goldWinnings} gold");
                 return true;
             }

@@ -16,6 +16,7 @@ namespace NormalUserInterface
         public static void MainMenu(List<Potions> inventory)
         {
             int userInput;
+            Console.Clear();
             Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.DarkBlue;
@@ -25,31 +26,42 @@ namespace NormalUserInterface
             Console.WriteLine("\nEnter a number for one of the options below.\n");
             Console.WriteLine("(1) New Game");
             Console.WriteLine("(2) Load Game");
-            Console.WriteLine("(3) Save and Exit Game");
+            Console.WriteLine("(3) Save and Exit Game\n");
             Console.WriteLine("-----------------------------------------------------------------");
             try
             {
                 userInput = Convert.ToInt32(Console.ReadLine());
+                if (userInput == 4)//For testing purposes
+                {
+                    Console.Clear();
+                    GameMenu(inventory);
+                }
                 if (userInput == 1)
                 {
                     if (File.Exists("GoldCount.txt"))
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nAre you sure? You will be unable to recover any previously saved data.\n");
                         Console.WriteLine("(1) Yes, Restart Game");
-                        Console.WriteLine("(2) No, Return to Main Menu");
+                        Console.WriteLine("(2) No, Return to Main Menu\n");
+                        Console.WriteLine("-----------------------------------------------------------------");
                         userInput = Convert.ToInt32(Console.ReadLine());
                         if (userInput == 1)
                         {
                             DefaultCharacterSettings.ResetCharacter(inventory);
+                            Console.Clear();
                             GameMenu(inventory);
                         }
                         if (userInput == 2)
                         {
+                            Console.Clear();
                             MainMenu(inventory);
                         }
                     }
                     else
                     {
+                        Console.Clear();
                         DefaultCharacterSettings.ResetCharacter(inventory);
                         GameMenu(inventory);
                     }
@@ -60,11 +72,12 @@ namespace NormalUserInterface
                     LoadGame.LoadUserGold();
                     LoadGame.LoadUserLevel();
                     LoadGame.LoadUserDefeats();
+                    Console.Clear();
                     Console.WriteLine("-----------------------------------------------------------------");
                     Console.WriteLine("\nYour inventory has been loaded!");
-                    Console.WriteLine("Your gold has been loaded!");
-                    Console.WriteLine("Your level has been loaded!");
-                    Console.WriteLine("Your defeat count has been loaded!\n");
+                    Console.WriteLine($"You have {UserCharacter.userGoldCount} gold!");
+                    Console.WriteLine($"You are level {UserCharacter.userLevel}!");
+                    Console.WriteLine($"You have been defeated {UserCharacter.userDefeatedCount} times!\n");
                     GameMenu(LoadGame.LoadUserInventory());
                 }
                 if (userInput == 3)
@@ -73,6 +86,7 @@ namespace NormalUserInterface
                     SaveGame.SaveUserGold();
                     SaveGame.SaveUserLevel();
                     SaveGame.SaveUserDefeats();
+                    Console.Clear();
                     Console.WriteLine("-----------------------------------------------------------------");
                     Console.WriteLine("\nYour inventory has been saved!");
                     Console.WriteLine("Your gold has been saved!");
@@ -84,12 +98,16 @@ namespace NormalUserInterface
                 }
                 else
                 {
+                    Console.Clear();
+                    Console.WriteLine("-----------------------------------------------------------------");
                     Console.WriteLine("\nI'm sorry, that command was not recognized. Please try again.\n");
                     MainMenu(inventory);
                 }
             }
             catch
             {
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nI'm sorry, that's not a proper command. Please try again.\n");
                 MainMenu(inventory);
             }
@@ -117,6 +135,8 @@ namespace NormalUserInterface
             }
             catch
             {
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nSorry, that's not an authorized command! Please try again.\n");
                 GameMenu(inventory);
             }
@@ -126,18 +146,22 @@ namespace NormalUserInterface
         {
             if (userInput == 1)
             {
+                Console.Clear();
                 BattleUserInterface.GoIntoBattle(inventory);
             }
             if (userInput == 2)
             {
+                Console.Clear();
                 VisitStore(inventory);
             }
             if (userInput == 3)
             {
+                Console.Clear();
                 CharacterInformation(inventory);
             }
             if (userInput == 4)
             {
+                Console.Clear();
                 ReadInstructions(inventory);
             }
             if (userInput == 5)
@@ -146,6 +170,8 @@ namespace NormalUserInterface
             }
             if (userInput != 1 & userInput != 2 & userInput != 3 & userInput != 4 & userInput != 5)
             {
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nSorry, that option doesn't exist! Please try again.\n");
                 GameMenu(inventory);
             }
@@ -193,6 +219,7 @@ namespace NormalUserInterface
             string? userInput = Console.ReadLine();
             if (userInput != null)
             {
+                Console.Clear();
                 GameMenu(inventory);
             }
         }
@@ -227,15 +254,12 @@ namespace NormalUserInterface
                     if (UserCharacter.userGoldCount >= 10)
                     {
                         AddToInventory.AddLesserHealthPotion(inventory);
-                        Console.WriteLine("\nInventory List:\n");
-                        foreach (var item in inventory)
-                        {
-                            Console.WriteLine(item);
-                        }
-                        Console.WriteLine();
+                        Console.Clear();
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have enough gold!\n");
                     }
                 }
@@ -244,15 +268,12 @@ namespace NormalUserInterface
                     if (UserCharacter.userGoldCount >= 20)
                     {
                         AddToInventory.AddGreaterHealthPotion(inventory);
-                        Console.WriteLine("\nInventory List:\n");
-                        foreach (var item in inventory)
-                        {
-                            Console.WriteLine(item);
-                        }
-                        Console.WriteLine();
+                        Console.Clear();
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have enough gold!\n");
                     }
                 }
@@ -261,15 +282,12 @@ namespace NormalUserInterface
                     if (UserCharacter.userGoldCount >= 30)
                     {
                         AddToInventory.AddGrandestHealthPotion(inventory);
-                        Console.WriteLine("\nInventory List:\n");
-                        foreach (var item in inventory)
-                        {
-                            Console.WriteLine(item);
-                        }
-                        Console.WriteLine();
+                        Console.Clear();
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have enough gold!\n");
                     }
                 }
@@ -278,24 +296,24 @@ namespace NormalUserInterface
                     if (UserCharacter.userGoldCount >= (((UserCharacter.userLevel - 1) * 10) + 100))
                     {
                         AddToInventory.AddLevelUpPotion(inventory);
-                        Console.WriteLine("\nInventory List:\n");
-                        foreach (var item in inventory)
-                        {
-                            Console.WriteLine(item);
-                        }
-                        Console.WriteLine();
+                        Console.Clear();
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have enough gold!\n");
                     }
                 }
                 if (userInput == 5)
                 {
+                    Console.Clear();
                     break;
                 }
                 if (userInput != 1 & userInput != 2 & userInput != 3 & userInput != 4 & userInput != 5)
                 {
+                    Console.Clear();
+                    Console.WriteLine("-----------------------------------------------------------------");
                     Console.WriteLine("\nI'm sorry, please try again with a valid option.\n");
                 }
             }
@@ -327,14 +345,18 @@ namespace NormalUserInterface
             userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
+                Console.Clear();
                 UsePotion(inventory);
             }
             if (userInput == 2)
             {
+                Console.Clear();
                 GameMenu(inventory);
             }
             else
             {
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nPlease try again with one of the availible commands.\n");
                 CharacterInformation(inventory);
             }
@@ -343,8 +365,10 @@ namespace NormalUserInterface
         public static void UsePotion(List<Potions> inventory)
         {
             int userInput;
-            if (DisplayInventory.DisplayLesserHealthPotions(inventory) == 0 && DisplayInventory.DisplayGreaterHealthPotions(inventory) == 0 && DisplayInventory.DisplayLevelUpPotions(inventory) == 0)
+            if (DisplayInventory.DisplayLesserHealthPotions(inventory) == 0 && DisplayInventory.DisplayGreaterHealthPotions(inventory) == 0 && DisplayInventory.DisplayGrandestHealthPotion(inventory) == 0 && DisplayInventory.DisplayLevelUpPotions(inventory) == 0)
             {
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nYou have no items to use!\n");
                 CharacterInformation(inventory);
             }
@@ -356,7 +380,7 @@ namespace NormalUserInterface
                 Console.WriteLine("(2) Greater Health Potion");
                 Console.WriteLine("(3) Grandest Health Potion");
                 Console.WriteLine("(4) Level Up Potion");
-                Console.WriteLine("(5) Exit without using item\n");
+                Console.WriteLine("\n(5) Exit without using item\n");
                 Console.WriteLine("-----------------------------------------------------------------");
                 userInput = Convert.ToInt32(Console.ReadLine());
                 if (userInput == 1)
@@ -364,11 +388,15 @@ namespace NormalUserInterface
                     if (DisplayInventory.DisplayLesserHealthPotions(inventory) != 0)
                     {
                         UsingPotions.UseLesserHealthPotion(inventory);
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine($"\nYour health is now {UserCharacter.userHealth}!\n");
                         CharacterInformation(inventory);
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have any of that potion! Please select something else.\n");
                         UsePotion(inventory);
                     }
@@ -378,11 +406,15 @@ namespace NormalUserInterface
                     if (DisplayInventory.DisplayGreaterHealthPotions(inventory) != 0)
                     {
                         UsingPotions.UseGreaterHealthPotion(inventory);
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine($"\nYour health is now {UserCharacter.userHealth}!\n");
                         CharacterInformation(inventory);
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have any of that potion! Please select something else.\n");
                         UsePotion(inventory);
                     }
@@ -392,12 +424,15 @@ namespace NormalUserInterface
                     if (DisplayInventory.DisplayGrandestHealthPotion(inventory) != 0)
                     {
                         UsingPotions.UseGrandestHealthPotion(inventory);
+                        Console.Clear();
                         Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine($"\nYour health is now {UserCharacter.userHealth}!\n");
                         CharacterInformation(inventory);
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have any of that potion! Please select something else.\n");
                         UsePotion(inventory);
                     }
@@ -407,6 +442,8 @@ namespace NormalUserInterface
                     if (DisplayInventory.DisplayLevelUpPotions(inventory) != 0)
                     {
                         UsingPotions.UseLevelUpPotion(inventory);
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine($"\nYour level is now {UserCharacter.userLevel}!");
                         Console.WriteLine($"Your health is now {UserCharacter.userHealth}!");
                         Console.WriteLine($"Your attack damage is now {UserCharacter.userAttackDamage}!\n");
@@ -414,12 +451,15 @@ namespace NormalUserInterface
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have any of that potion! Please select something else.\n");
                         UsePotion(inventory);
                     }
                 }
                 if (userInput == 5)
                 {
+                    Console.Clear();
                     CharacterInformation(inventory);
                 }
             }

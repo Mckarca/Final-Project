@@ -13,7 +13,7 @@ namespace BattleUI
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.DarkMagenta;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("BATTLE! Time To fight!");
+            Console.WriteLine("BATTLE!");
             Console.ResetColor();
             BattleMenu(inventory);
         }
@@ -36,6 +36,8 @@ namespace BattleUI
             }
             catch
             {
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nSorry, that's not an valid command! Please try again.\n");
                 GoIntoBattle(inventory);
             }
@@ -45,10 +47,12 @@ namespace BattleUI
         {
             if (userInput == 1)
             {
+                Console.Clear();
                 AttackOpponent(inventory);
             }
             if (userInput == 2)
             {
+                Console.Clear();
                 UseItem(inventory);
             }
             if (userInput == 3)
@@ -58,6 +62,8 @@ namespace BattleUI
             }
             else
             {
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nSorry, that's not an valid option! Please try again.\n");
                 GoIntoBattle(inventory);
             }
@@ -91,7 +97,9 @@ namespace BattleUI
                 if (DefeatInBattle.UserDefeatInBattle() is true)
                 {
                     UserCharacter.userDefeatedCount++;
-                    Console.WriteLine("You have been defeated!");
+                    Console.Clear();
+                    Console.WriteLine("-----------------------------------------------------------------");
+                    Console.WriteLine("\nYou have been defeated!");
                     Console.WriteLine($"You have been defeated {UserCharacter.userDefeatedCount}/5 times.");
                     Console.WriteLine();
                     if (UserCharacter.userDefeatedCount < 5)
@@ -110,7 +118,12 @@ namespace BattleUI
         public static void ChallengeLesserKnight()
         {
             Console.WriteLine("-----------------------------------------------------------------");
-            Console.WriteLine("\nYour opponent is the Lesser Knight!");
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Time To fight!");
+            Console.ResetColor();
+            Console.WriteLine("\nYour opponent is the LESSER KNIGHT!");
             Console.WriteLine($"Opponent's Health: {LesserKnight.health}");
             Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
             Attack.AttackLesserKnight();
@@ -122,7 +135,12 @@ namespace BattleUI
         public static void ChallengeRegularKnight()
         {
             Console.WriteLine("-----------------------------------------------------------------");
-            Console.WriteLine("\nYour opponent is the Regular Knight!");
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Time To fight!");
+            Console.ResetColor();
+            Console.WriteLine("\nYour opponent is the REGULAR KNIGHT!");
             Console.WriteLine($"Opponent's Health: {RegularKnight.health}");
             Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
             Attack.AttackRegularKnight();
@@ -134,7 +152,12 @@ namespace BattleUI
         public static void ChallengeGreaterKnight()
         {
             Console.WriteLine("-----------------------------------------------------------------");
-            Console.WriteLine("\nYour opponent is the Greater Knight!");
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Time To fight!");
+            Console.ResetColor();
+            Console.WriteLine("\nYour opponent is the GREATER KNIGHT!");
             Console.WriteLine($"Opponent's Health: {GreaterKnight.health}");
             Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
             Attack.AttackGreaterKnight();
@@ -157,28 +180,43 @@ namespace BattleUI
                 if (userInput == 1)
                 {
                     ChallengingKing = true;
-                    Console.WriteLine("-----------------------------------------------------------------");
-                    Console.WriteLine("\nYou have challenged the Tyrant King!");
-                    Console.WriteLine($"Opponent's Health: {TyrantKing.health}");
-                    Console.WriteLine($"User's Health: {UserCharacter.userHealth}\n");
-                    Attack.AttackTyrantKing();
-                    Console.WriteLine($"You have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {TyrantKing.health}!");
-                    Console.WriteLine($"You have received {TyrantKing.attackDamage} damage! Your health is now {UserCharacter.userHealth}!\n");
-                    Console.WriteLine("-----------------------------------------------------------------");
+                    // Console.WriteLine("-----------------------------------------------------------------");
+                    // Console.WriteLine();
+                    // Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                    // Console.ForegroundColor = ConsoleColor.White;
+                    // Console.WriteLine("Time To fight!");
+                    // Console.ResetColor();
+                    // Console.WriteLine("\nYou have challenged the TYRANT KING!");
+                    // Console.WriteLine($"Opponent's Health: {TyrantKing.health}");
+                    // Console.WriteLine($"User's Health: {UserCharacter.userHealth}\n");
+                    // Attack.AttackTyrantKing();
+                    // Console.WriteLine($"You have dealt {UserCharacter.userAttackDamage} damage! Your opponent's health is now {TyrantKing.health}!");
+                    // Console.WriteLine($"You have received {TyrantKing.attackDamage} damage! Your health is now {UserCharacter.userHealth}!\n");
+                    // Console.WriteLine("-----------------------------------------------------------------");
                 }
                 if (userInput == 2)
                 {
+                    Console.Clear();
                     ChallengeGreaterKnight();
                 }
-                else
+                if (userInput != 1 && userInput != 2)
                 {
+                    Console.Clear();
+                    Console.WriteLine("-----------------------------------------------------------------");
                     Console.WriteLine("\nPlease try again with some valid input.\n");
+                    Console.WriteLine("-----------------------------------------------------------------");
                 }
             }
             if (ChallengingKing == true)
             {
+                Console.Clear();
                 Console.WriteLine("-----------------------------------------------------------------");
-                Console.WriteLine("\nYou are fighting the Tyrant King!");
+                Console.WriteLine();
+                Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Time To fight!");
+                Console.ResetColor();
+                Console.WriteLine("\nYou are fighting the TYRANT KING!");
                 Console.WriteLine($"Opponent's Health: {TyrantKing.health}");
                 Console.WriteLine($"User's Health: {UserCharacter.userHealth}");
                 Attack.AttackTyrantKing();
@@ -188,6 +226,10 @@ namespace BattleUI
                 {
                     ChallengingKing = false;
                     UserWins();
+                }
+                if (UserCharacter.userHealth <= 0)
+                {
+                    ChallengingKing = false;
                 }
             }
         }
@@ -207,6 +249,8 @@ namespace BattleUI
             Console.WriteLine($"You have {DisplayInventory.DisplayLevelUpPotions(inventory)} Level Up potions.");
             if (DisplayInventory.DisplayLesserHealthPotions(inventory) == 0 && DisplayInventory.DisplayGreaterHealthPotions(inventory) == 0 && DisplayInventory.DisplayLevelUpPotions(inventory) == 0 && DisplayInventory.DisplayGrandestHealthPotion(inventory) == 0)
             {
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nYou have no items to use\n");
                 GoIntoBattle(inventory);
             }
@@ -225,12 +269,15 @@ namespace BattleUI
                     if (DisplayInventory.DisplayLesserHealthPotions(inventory) != 0)
                     {
                         UsingPotions.UseLesserHealthPotion(inventory);
+                        Console.Clear();
                         Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine($"\nYour health is now {UserCharacter.userHealth}!\n");
                         GoIntoBattle(inventory);
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have any of that potion! Please select something else.");
                         UseItem(inventory);
                     }
@@ -240,12 +287,15 @@ namespace BattleUI
                     if (DisplayInventory.DisplayGreaterHealthPotions(inventory) != 0)
                     {
                         UsingPotions.UseGreaterHealthPotion(inventory);
+                        Console.Clear();
                         Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine($"\nYour health is now {UserCharacter.userHealth}!\n");
                         GoIntoBattle(inventory);
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have any of that potion! Please select something else.\n");
                         UseItem(inventory);
                     }
@@ -255,12 +305,15 @@ namespace BattleUI
                     if (DisplayInventory.DisplayGrandestHealthPotion(inventory) != 0)
                     {
                         UsingPotions.UseGrandestHealthPotion(inventory);
+                        Console.Clear();
                         Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine($"\nYour health is now {UserCharacter.userHealth}!\n");
                         GoIntoBattle(inventory);
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have any of that potion! Please select something else.\n");
                         UseItem(inventory);
                     }
@@ -270,6 +323,7 @@ namespace BattleUI
                     if (DisplayInventory.DisplayLevelUpPotions(inventory) != 0)
                     {
                         UsingPotions.UseLevelUpPotion(inventory);
+                        Console.Clear();
                         Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine($"\nYour level is now {UserCharacter.userLevel}!");
                         Console.WriteLine($"Your health is now {UserCharacter.userHealth}!");
@@ -278,12 +332,15 @@ namespace BattleUI
                     }
                     else
                     {
+                        Console.Clear();
+                        Console.WriteLine("-----------------------------------------------------------------");
                         Console.WriteLine("\nYou don't have any of that potion! Please select something else.\n");
                         UseItem(inventory);
                     }
                 }
                 if (userInput == 5)
                 {
+                    Console.Clear();
                     GoIntoBattle(inventory);
                 }
             }
@@ -292,6 +349,7 @@ namespace BattleUI
         public static void Flee(List<Potions> inventory)
         {
             int userInput;
+            Console.Clear();
             Console.WriteLine("-----------------------------------------------------------------");
             Console.WriteLine("\nAre you sure you wish to flee? Your health will not be reset.");
             Console.WriteLine("\n(1) Yes");
@@ -300,14 +358,18 @@ namespace BattleUI
             userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
+                Console.Clear();
                 UserInterface.GameMenu(inventory);
             }
             if (userInput == 2)
             {
+                Console.Clear();
                 GoIntoBattle(inventory);
             }
             else
             {
+                Console.Clear();
+                Console.WriteLine("-----------------------------------------------------------------");
                 Console.WriteLine("\nI'm sorry, please try entering a valid option.\n");
                 Flee(inventory);
             }
