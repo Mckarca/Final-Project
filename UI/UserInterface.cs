@@ -192,7 +192,7 @@ namespace NormalUserInterface
             Console.WriteLine("     Lesser Knight: Level 1-3");
             Console.WriteLine("     Regular Knight: Level 4-7");
             Console.WriteLine("     Greater Knight: Level 8-12");
-            Console.WriteLine("     Tyrant King: Availible to challenge after you reach level 15");
+            Console.WriteLine("     Tyrant King: Availible to challenge after you reach level 13");
             Console.WriteLine("To win the game, defeat the Tyrant King and reclaim your treasure!");
             Console.WriteLine("You lose the game if you are defeated 5 times over the course of the game.");
             Console.WriteLine("Keep an eye on your health and buy health potions when needed.\n");
